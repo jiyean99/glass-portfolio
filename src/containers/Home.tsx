@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { HomeWrap } from "../styles/containers/Home.style";
 import PixelDot from "../components/Image/PixelDot";
 import HeadTopImg from "../assets/images/head-top.png";
@@ -6,39 +5,42 @@ import HeadBottomImg from "../assets/images/head-bottom.png";
 import IntroTxtImg from "../assets/images/intro-txt.png";
 import RandomAlphabetGrid from "../components/RandomAlphabetGrid";
 
-const getCurrentKoreanTime = () => {
-  const locale = "ko-KR";
-  const options: Intl.DateTimeFormatOptions = {
-    year: "2-digit",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-    timeZone: "Asia/Seoul",
-  };
-  return new Date()
-    .toLocaleString(locale, options)
-    .replace(/\./g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-};
+// 기획 변경으로 인한 주석처리
+// const getCurrentKoreanTime = () => {
+//   const locale = "ko-KR";
+//   const options: Intl.DateTimeFormatOptions = {
+//     year: "2-digit",
+//     month: "2-digit",
+//     day: "2-digit",
+//     hour: "2-digit",
+//     minute: "2-digit",
+//     second: "2-digit",
+//     hour12: false,
+//     timeZone: "Asia/Seoul",
+//   };
+//   return new Date()
+//     .toLocaleString(locale, options)
+//     .replace(/\./g, "")
+//     .replace(/\s+/g, " ")
+//     .trim();
+// };
 
 const Home: React.FC = () => {
-  const [timeLeft, setTimeLeft] = useState(getCurrentKoreanTime());
+  // 기획 변경으로 인한 주석처리
+  // const [timeLeft, setTimeLeft] = useState(getCurrentKoreanTime());
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft(getCurrentKoreanTime());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setTimeLeft(getCurrentKoreanTime());
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <HomeWrap>
       <section className="intro-section">
-        <div className="top-bar">
+        {/* 기획 변경으로 인한 주석처리 */}
+        {/* <div className="top-bar">
           <div className="left-ele">
             <span>KR {timeLeft}</span>
           </div>
@@ -48,8 +50,7 @@ const Home: React.FC = () => {
           <div className="right-ele">
             <span>Ready To Bloom</span>
           </div>
-        </div>
-
+        </div> */}
         <div className="intro-content">
           <img
             src={IntroTxtImg}
@@ -64,6 +65,10 @@ const Home: React.FC = () => {
             꽃을 피울 준비가 된 개발자 이지연입니다. 성장과 혁신을 향한 열정을
             품고 있습니다.
           </div>
+        </div>
+
+        <div className="scroll-down-ele">
+          <span className="dot"></span>
         </div>
       </section>
 

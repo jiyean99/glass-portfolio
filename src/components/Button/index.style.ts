@@ -9,7 +9,7 @@ export const HamburgerButtonWrap = styled.button`
 
   .hamburger-btn-elem {
     width: 32px;
-    height: 24px;
+    height: 22px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

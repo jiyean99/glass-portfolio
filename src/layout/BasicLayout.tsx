@@ -91,7 +91,7 @@ const BasicLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   };
 
   return (
-    <BasicLayoutWrap $isTop={isTop}>
+    <BasicLayoutWrap $isTop={isTop} $isNavOpen={isNavOpen}>
       <header>
         <ThemeToggleButton />
         <HamburgerButton isOpen={isNavOpen} onToggle={toggleNavOpen} />

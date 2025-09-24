@@ -2,6 +2,7 @@ import styled, { keyframes, css } from "styled-components";
 
 interface BasicLayoutWrapProps {
   $isTop: boolean;
+  $isNavOpen: boolean;
 }
 
 const growLine = keyframes`
@@ -14,7 +15,7 @@ const growLine = keyframes`
 `;
 
 export const BasicLayoutWrap = styled.div<BasicLayoutWrapProps>`
-  --header-padding-block: 16px;
+  --header-padding-block: 0;
   --header-padding-inline: 32px;
 
   header {
@@ -27,8 +28,13 @@ export const BasicLayoutWrap = styled.div<BasicLayoutWrapProps>`
     top: 0;
     transition: all 0.5s;
     width: calc(100% - (var(--header-padding-inline) * 2));
-    background: none;
-    box-shadow: ${({ $isTop }) => ($isTop ? "none" : "0 4px 30px #0000001a")};
+
+    background: ${({ $isTop }) =>
+      $isTop ? "none" : " rgba(255, 255, 255, 0.2)"};
+    box-shadow: ${({ $isTop }) =>
+      $isTop ? "none" : " 0 4px 30px rgba(0, 0, 0, 0.1)"};
+    backdrop-filter: ${({ $isTop }) => ($isTop ? "none" : "blur(5px)")};
+    -webkit-backdrop-filter: ${({ $isTop }) => ($isTop ? "none" : "blur(5px)")};
 
     &::after {
       content: "";
@@ -40,13 +46,20 @@ export const BasicLayoutWrap = styled.div<BasicLayoutWrapProps>`
       width: 100%;
       height: 1px;
       background-color: ${({ theme }) => theme.color.themeTxt};
-      transform-origin: center;
+
       ${({ $isTop }) =>
         !$isTop &&
         css`
           animation: ${growLine} 1s ease forwards;
         `}
     }
+  }
+
+  main {
+    filter: ${({ $isNavOpen }) =>
+      !$isNavOpen ? "none" : "blur(70px) opacity(.5)"};
+    -webkit-filter: ${({ $isNavOpen }) =>
+      !$isNavOpen ? "none" : "blur(70px) opacity(.5)"};
   }
 `;
 

@@ -22,13 +22,12 @@ export const HomeWrap = styled.main`
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  color: red;
   position: relative;
   z-index: 1;
   max-width: 1920px;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 20px 40px;
+  padding-inline: 54px;
 
   // ******************** 인트로 영역 ********************
   .intro-section {
@@ -37,10 +36,10 @@ export const HomeWrap = styled.main`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-content: center;
+    align-content: flex-start;
     position: relative;
 
-    & > .top-bar {
+    .top-bar {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -55,7 +54,7 @@ export const HomeWrap = styled.main`
         left: 50%;
         top: calc(50% + 2px);
         transform: translate(-50%, -50%);
-        width: calc(100% - (191px * 2));
+        width: calc(100% - (161px * 2));
         height: 1px;
         background: ${({ theme }) => theme.color.themeTxt};
       }
@@ -64,30 +63,30 @@ export const HomeWrap = styled.main`
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        border-radius: 16px;
-        height: 32px;
+        border-radius: 12px;
+        width: 160px;
+        height: 24px;
         text-align: center;
       }
 
       & > .left-ele,
       & > .right-ele {
         span {
-          width: 190px;
           border: 1px solid ${({ theme }) => theme.color.themeTxt};
           background: none;
           color: ${({ theme }) => theme.color.themeTxt};
+          font-size: ${({ theme }) => theme.font.tiny};
         }
       }
 
       & > .center {
-        flex: 1;
         text-align: center;
         z-index: 1;
-        height: 32px;
 
         span {
           padding-inline: 20px;
           background: #fe0100;
+          font-size: ${({ theme }) => theme.font.tiny};
           color: ${({ theme }) => theme.color.white};
         }
       }
@@ -96,7 +95,7 @@ export const HomeWrap = styled.main`
     .intro-content {
       position: relative;
       width: 100%;
-      height: 80%;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -105,9 +104,10 @@ export const HomeWrap = styled.main`
       .intro-main-img {
         position: relative;
         z-index: 2;
-        height: 90%;
+        height: 80%;
         margin: 0 auto;
         pointer-events: none;
+        transform: translateY(-4%);
       }
 
       .intro-text-left {
@@ -133,6 +133,45 @@ export const HomeWrap = styled.main`
         text-align: right;
       }
     }
+
+    .scroll-down-ele {
+      display: block;
+      position: absolute;
+      bottom: 3%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 56px;
+      border: 1px solid ${({ theme }) => theme.color.themeTxt};
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .dot {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 8px;
+        height: 8px;
+        background: ${({ theme }) => theme.color.themeTxt};
+        border-radius: 50%;
+        animation: moveDot 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      @keyframes moveDot {
+        0% {
+          top: 15%;
+          opacity: 1;
+        }
+
+        100% {
+          top: 70%;
+          opacity: 0;
+        }
+      }
+    }
   }
 
   // ******************** 프로필 영역 ********************
@@ -142,6 +181,7 @@ export const HomeWrap = styled.main`
     align-items: flex-end;
     min-height: 340px;
     width: 100%;
+    position: relative;
 
     .left {
       .title {
@@ -176,6 +216,10 @@ export const HomeWrap = styled.main`
     }
 
     .center {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-55%);
       display: flex;
       flex-direction: column;
       align-items: center;
