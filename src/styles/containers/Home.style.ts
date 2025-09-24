@@ -121,6 +121,7 @@ export const HomeWrap = styled.main`
         font-size: 1rem;
         z-index: 3;
         letter-spacing: 0.03em;
+        white-space: nowrap;
       }
 
       .intro-text-right {
@@ -133,6 +134,7 @@ export const HomeWrap = styled.main`
         z-index: 3;
         letter-spacing: 0.03em;
         text-align: right;
+        white-space: nowrap;
       }
     }
 
@@ -184,6 +186,7 @@ export const HomeWrap = styled.main`
     min-height: 340px;
     width: 100%;
     position: relative;
+    overflow: hidden;
 
     .left {
       .title {

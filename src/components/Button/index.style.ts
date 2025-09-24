@@ -26,16 +26,19 @@ export const HamburgerButtonWrap = styled.button`
     transform-origin: center;
   }
 
-  &.open .bar:nth-child(1) {
-    transform: translateY(10px) rotate(45deg);
-  }
-
-  &.open .bar:nth-child(2) {
-    opacity: 0;
-  }
-
-  &.open .bar:nth-child(3) {
-    transform: translateY(-10px) rotate(-45deg);
+  &.open {
+    .hamburger-btn-elem {
+      height: 22px;
+    }
+    .bar:nth-child(1) {
+      transform: translateY(10px) rotate(45deg);
+    }
+    .bar:nth-child(2) {
+      opacity: 0;
+    }
+    .bar:nth-child(3) {
+      transform: translateY(-10px) rotate(-45deg);
+    }
   }
 `;
 

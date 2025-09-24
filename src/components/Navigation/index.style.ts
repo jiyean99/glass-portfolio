@@ -14,6 +14,7 @@ export const NavigationWrap = styled.div`
     display: flex;
     flex-direction: column;
     z-index: 99;
+    overflow: hidden;
   }
   .nav-panel.open {
     transform: translateX(0);

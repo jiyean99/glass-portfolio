@@ -25,7 +25,13 @@ function LiquidBackground({
     speedY: 0,
   });
 
-  const count = 20;
+  let count = 20;
+  if (window.innerWidth <= 1024) {
+    count = 8;
+  } else if (window.innerWidth <= 500) {
+    count = 4;
+  }
+
   // 현재 위치 등 점 상태
   const blobsRef = useRef<Blob[]>(
     Array.from({ length: count }, () => ({
@@ -49,7 +55,7 @@ function LiquidBackground({
       ...blob,
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      r: 140 + Math.random() * 80,
+      r: 140 + Math.random() * 5,
       vx: (Math.random() - 0.5) * 0.3,
       vy: (Math.random() - 0.5) * 0.3,
     }));
@@ -172,8 +178,8 @@ function LiquidBackground({
 
           if (dist < 150) {
             const push = 25 * Math.exp(-(dist * dist) / 1200);
-            dot.x += dx * 0.03 * push + speedX * 0.4;
-            dot.y += dy * 0.03 * push + speedY * 0.4;
+            dot.x += dx * 0.03 * push + speedX * 0.8;
+            dot.y += dy * 0.03 * push + speedY * 0.8;
             dot.r = Math.min(dot.r + 5 * push, 180);
           } else {
             dot.r = Math.max(dot.r - 0.15, 140);
