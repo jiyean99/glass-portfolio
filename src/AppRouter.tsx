@@ -8,7 +8,9 @@ import Contact from "./containers/Contact";
 import { useEffect } from "react";
 import CustomCursor from "./components/CustomCursor";
 
-const AppRouter = () => {
+const AppRouter = () => { 
+  const basename = import.meta.env.VITE_BASENAME || "";
+
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
@@ -16,7 +18,7 @@ const AppRouter = () => {
   }, []);
 
   return (
-    <HashRouter>
+    <HashRouter basename={basename}>
       <CustomCursor />
       <BasicLayout>
         <Routes>
