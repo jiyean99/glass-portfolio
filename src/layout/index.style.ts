@@ -15,7 +15,7 @@ const growLine = keyframes`
 `;
 
 export const BasicLayoutWrap = styled.div<BasicLayoutWrapProps>`
-  --header-padding-block: 0;
+  --header-padding-block: 4px;
   --header-padding-inline: 32px;
 
   header {

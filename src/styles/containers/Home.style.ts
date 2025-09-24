@@ -94,7 +94,7 @@ export const HomeWrap = styled.main`
 
     .intro-content {
       position: relative;
-      width: 100%;
+      width: 90%;
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -105,6 +105,8 @@ export const HomeWrap = styled.main`
         position: relative;
         z-index: 2;
         height: 80%;
+        max-width: 80%;
+        object-fit: contain;
         margin: 0 auto;
         pointer-events: none;
         transform: translateY(-4%);
