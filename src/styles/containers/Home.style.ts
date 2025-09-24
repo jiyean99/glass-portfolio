@@ -183,10 +183,15 @@ export const HomeWrap = styled.main`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    min-height: 340px;
+    min-height: 100vh;
+    align-items: center;
     width: 100%;
     position: relative;
     overflow: hidden;
+
+    li {
+      list-style: normal;
+    }
 
     .left {
       .title {

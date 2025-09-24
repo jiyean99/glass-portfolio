@@ -88,7 +88,7 @@ const Home: React.FC = () => {
           </ul>
           <div className="experience-title">Experience</div>
           <ul className="experience-list">
-            <li>2023.03~2025.08 : (주)젤퍼블릭</li>
+            <li>2023.03~2025.08 : (주)잼퍼블릭</li>
           </ul>
         </div>
         {/* 중앙 */}
