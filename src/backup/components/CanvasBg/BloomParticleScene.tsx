@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from "react";
+import { useRef, useMemo } from "react";
 import { Canvas, useFrame, extend } from "@react-three/fiber";
 import { Effects } from "@react-three/drei";
 import * as THREE from "three";
@@ -40,11 +40,11 @@ function ParticleLayer({
   // 각 꽃잎에 대한 기본 scale과 폭 초기값 배열
   const basePetalScales = useMemo(
     () => Array.from({ length: PETAL_COUNT }, () => rand(0.45, 2.7)),
-    []
+    [],
   );
   const basePetalWidths = useMemo(
     () => Array.from({ length: PETAL_COUNT }, () => rand(0.5, 1.4)),
-    []
+    [],
   );
 
   // 변동 scale 값을 저장할 상태 변수(useRef로)
@@ -74,7 +74,7 @@ function ParticleLayer({
       const phi = Math.random() * 2 * Math.PI;
       const theta = Math.random() * Math.PI;
       const petalIndex = Math.floor(
-        ((theta % Math.PI) / Math.PI) * PETAL_COUNT
+        ((theta % Math.PI) / Math.PI) * PETAL_COUNT,
       );
 
       // animation으로 변화하는 petalScale과 폭 적용 (이 부분을 useMemo에서 직접 처리하는 건 불가능해서 frame마다 재생성하려면 다른 구조가 필요)
@@ -186,7 +186,7 @@ export default function BloomParticleScene() {
         initialY: rand(0, Math.PI * 2),
         initialZ: rand(0, Math.PI * 2),
       })),
-    []
+    [],
   );
   return (
     <Canvas camera={{ position: [0, 0, 7.5], fov: 55 }}>

@@ -7,7 +7,6 @@ import { setCluster, toggleCluster } from "../store/clusterSlice";
 import HamburgerButton from "../components/Button/HamburgerButton";
 import type { NavItem } from "../types/navigation";
 import ThemeToggleButton from "../components/Button/ThemeToggleButton";
-import WaveScene from "../components/CanvasBg/RippleWaveScene.tsx";
 
 const navItems: NavItem[] = [
   {
