@@ -23,7 +23,6 @@ export const HomeWrap = styled.main`
   display: flex;
   flex-wrap: wrap;
   position: relative;
-  z-index: 1;
   max-width: 1920px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -100,6 +99,12 @@ export const HomeWrap = styled.main`
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
+      .intro-txt {
+        text-align: center;
+        font-weight: ${({ theme }) => theme.fontW.bold};
+        font-size: calc(${({ theme }) => theme.font.xxlarge} * 2);
+      }
 
       .intro-main-img {
         position: relative;

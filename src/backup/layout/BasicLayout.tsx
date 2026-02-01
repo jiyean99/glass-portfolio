@@ -1,12 +1,13 @@
-import BasicLayoutWrap from "./index.style";
+import BasicLayoutWrap from "./index.style.ts";
 import Navigation from "../components/Navigation";
-import LiquidBackground from "../LiquidBackground";
+import LiquidBackground from "../components/CanvasBg/LiquidBackground";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCluster, toggleCluster } from "../store/clusterSlice";
 import HamburgerButton from "../components/Button/HamburgerButton";
 import type { NavItem } from "../types/navigation";
 import ThemeToggleButton from "../components/Button/ThemeToggleButton";
+import WaveScene from "../components/CanvasBg/RippleWaveScene.tsx";
 
 const navItems: NavItem[] = [
   {
@@ -62,7 +63,7 @@ const BasicLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
   const handleNavHover = (
     centerColor?: [number, number, number],
-    edgeColor?: [number, number, number]
+    edgeColor?: [number, number, number],
   ) => {
     setBgColors({ centerColor, edgeColor });
   };
@@ -73,7 +74,7 @@ const BasicLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
   const handleNavClick = (
     centerColor?: [number, number, number],
-    edgeColor?: [number, number, number]
+    edgeColor?: [number, number, number],
   ) => {
     setSelectedColors({ centerColor, edgeColor });
     setBgColors({ centerColor, edgeColor });
@@ -92,6 +93,11 @@ const BasicLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
   return (
     <BasicLayoutWrap $isTop={isTop} $isNavOpen={isNavOpen}>
+      <LiquidBackground
+        centerColor={bgColors.centerColor}
+        edgeColor={bgColors.edgeColor}
+      />
+      {/* <WaveScene /> */}
       <header>
         <ThemeToggleButton />
         <HamburgerButton isOpen={isNavOpen} onToggle={toggleNavOpen} />
@@ -106,10 +112,6 @@ const BasicLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
         />
       </header>
       {children}
-      <LiquidBackground
-        centerColor={bgColors.centerColor}
-        edgeColor={bgColors.edgeColor}
-      />
     </BasicLayoutWrap>
   );
 };

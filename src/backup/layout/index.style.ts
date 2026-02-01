@@ -61,6 +61,31 @@ export const BasicLayoutWrap = styled.div<BasicLayoutWrapProps>`
     -webkit-filter: ${({ $isNavOpen }) =>
       !$isNavOpen ? "none" : "blur(70px) opacity(.5)"};
   }
+
+  .liquid-bg-canvas {
+    background: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    // pointer-events: none !important;
+    user-select: none;
+  }
+
+  header,
+  main {
+    pointer-events: none;
+  }
+
+  header button,
+  header a,
+  header [tabindex],
+  main button,
+  main a,
+  main [tabindex] {
+    cursor: pointer;
+    pointer-events: auto;
+  }
 `;
 
 export default BasicLayoutWrap;

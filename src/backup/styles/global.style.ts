@@ -123,7 +123,7 @@ const GlobalStyle = createGlobalStyle`
     
   html *,
   body * {
-    cursor: none;
+    transition: all 0.3s;
   }
 
   ol,

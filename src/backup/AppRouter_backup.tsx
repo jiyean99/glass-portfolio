@@ -6,9 +6,9 @@ import Project from "./containers/Project";
 import Contact from "./containers/Contact";
 
 import { useEffect } from "react";
-import CustomCursor from "./components/CustomCursor";
+// import CustomCursor from "./components/CustomCursor";
 
-const AppRouter = () => { 
+const AppRouter = () => {
   const basename = import.meta.env.VITE_BASENAME || "";
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const AppRouter = () => {
 
   return (
     <HashRouter basename={basename}>
-      <CustomCursor />
+      {/* <CustomCursor /> */}
       <BasicLayout>
         <Routes>
           <Route path="/" element={<Home />} />

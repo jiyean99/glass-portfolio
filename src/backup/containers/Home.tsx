@@ -2,7 +2,7 @@ import { HomeWrap } from "../styles/containers/Home.style";
 import PixelDot from "../components/Image/PixelDot";
 import HeadTopImg from "../assets/images/head-top.png";
 import HeadBottomImg from "../assets/images/head-bottom.png";
-import IntroTxtImg from "../assets/images/intro-txt.png";
+// import IntroTxtImg from "../assets/images/intro-txt.png";
 import RandomAlphabetGrid from "../components/RandomAlphabetGrid";
 
 // 기획 변경으로 인한 주석처리
@@ -52,11 +52,12 @@ const Home: React.FC = () => {
           </div>
         </div> */}
         <div className="intro-content">
-          <img
+          {/* <img
             src={IntroTxtImg}
             alt="BLOOMING DEVELOPER"
             className="intro-main-img"
-          />
+          /> */}
+          <p className="intro-txt">WEB DEVELOPER</p>
           <div className="intro-text-left">
             A blooming developer, Jiyoun Lee, passionate about growth and
             innovation.
