@@ -556,7 +556,7 @@ const App = () => {
             <br className="hidden sm:block" />
             이제는 Spring 생태계를 품은 풀스택 개발자로 성장하고 있습니다.
             <br className="hidden sm:block" />
-            화면을 클릭하여 꽃을 피워주세요.
+            바닥을 클릭하여 꽃을 피워주세요.
           </p>
           <div className="mt-10 md:mt-12 flex items-center gap-4 animate-bounce">
             <ChevronDown size={20} className="opacity-30" />
