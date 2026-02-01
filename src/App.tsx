@@ -548,10 +548,15 @@ const App = () => {
             <br />
             VISION.
           </h1>
-          <p className="mt-6 md:mt-8 text-sm sm:text-base md:text-xl opacity-60 max-w-xl font-light leading-relaxed">
+          <p
+            className="mt-6 md:mt-8 text-sm sm:text-base md:text-xl opacity-60 max-w-xl font-light leading-relaxed"
+            style={{ textWrap: "nowrap" }}
+          >
             3년의 필드 경력을 바탕으로 탄탄한 프론트엔드를 구축하고,
             <br className="hidden sm:block" />
-            이제는 Spring 생태계를 품은 풀스택 정원사로 성장하고 있습니다.
+            이제는 Spring 생태계를 품은 풀스택 개발자로 성장하고 있습니다.
+            <br className="hidden sm:block" />
+            화면을 클릭하여 꽃을 피워주세요.
           </p>
           <div className="mt-10 md:mt-12 flex items-center gap-4 animate-bounce">
             <ChevronDown size={20} className="opacity-30" />
@@ -614,24 +619,15 @@ const App = () => {
                 className={`${glassBase} p-8 md:p-14 rounded-[35px] md:rounded-[50px] space-y-12 md:space-y-16 border`}
               >
                 <div className="space-y-6 md:space-y-8">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-1 h-5 md:w-1.5 md:h-6 ${theme === "dark" ? "bg-blue-500" : "bg-blue-400 shadow-sm"} rounded-full`}
-                    />
-                    <h3 className="text-xs md:text-sm font-black tracking-[0.2em] uppercase">
-                      MY PHILOSOPHY
-                    </h3>
-                  </div>
-                  <p className="text-base sm:text-lg md:text-2xl font-light opacity-80 leading-relaxed">
-                    나는 기술을 단순히 도구로 보지 않습니다. 씨앗이 땅을 뚫고
-                    나오듯 로직 위로 아름다운 인터페이스가 피어나는 과정에
-                    집중합니다.
-                  </p>
                   <div
                     className={`${theme === "dark" ? "bg-white/5 border-yellow-400/50" : "bg-amber-400/10 border-amber-400/40"} p-5 md:p-6 rounded-2xl border-l-4 italic font-light opacity-90 text-sm md:text-base shadow-sm`}
                   >
                     “좋았다면 추억이고 나빴다면 경험이다.”
                   </div>
+                  <p className="text-base sm:text-lg md:text-2xl font-light opacity-80 leading-relaxed">
+                    어떤 상황에서도 배움을 놓치지 않으려는 태도로 성장해 온
+                    이지연입니다.
+                  </p>
                 </div>
 
                 <div className="space-y-6 md:space-y-8">
@@ -719,6 +715,32 @@ const App = () => {
                     </div>
                   </div>
                 </div>
+                <div className="space-y-6 md:space-y-8">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`w-1 h-5 md:w-1.5 md:h-6 ${theme === "dark" ? "bg-blue-500" : "bg-blue-400 shadow-sm"} rounded-full`}
+                    />
+                    <h3 className="text-xs md:text-sm font-black tracking-[0.2em] uppercase">
+                      CREDENTIAL
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8">
+                    {[
+                      "PCCE level 2",
+                      "웹디자인 기능사",
+                      "GTQ 1급",
+                      "GTQ-i 1급",
+                    ].map((item) => (
+                      <div
+                        key={item}
+                        className={`flex items-center gap-3 text-xs md:text-sm opacity-80 ${theme === "dark" ? "bg-white/5 border-white/5" : "bg-white/40 border-white/80"} p-3 rounded-xl border`}
+                      >
+                        <CheckCircle2 size={14} className={pointColor} />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -758,7 +780,7 @@ const App = () => {
                   <span
                     className={`${pointColor} font-mono text-xs md:text-sm font-bold tracking-widest uppercase`}
                   >
-                    2025.09 — PRESENT
+                    2025.11 — 2026.05
                   </span>
                 </div>
                 <h3
@@ -779,9 +801,15 @@ const App = () => {
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {[
+                    "Java",
                     "Spring Boot",
                     "JPA",
                     "MySQL",
+                    "Redis",
+                    "REST API",
+                    "AWS",
+                    "Docker",
+                    "Kubernetes",
                     "Architecture",
                     "DevOps",
                   ].map((skill) => (
@@ -824,10 +852,21 @@ const App = () => {
               >
                 <div className="space-y-4 md:space-y-6">
                   {[
-                    { title: "승부사온라인", desc: "고성능 게임 웹뷰 최적화" },
                     {
-                      title: "Revenue Admin",
-                      desc: "사내 매출 관리 대시보드 구축",
+                      title: "승부사온라인",
+                      desc: "모바일 중심 실시간 스포츠베팅 웹게임 유지 보수",
+                    },
+                    {
+                      title: "사내 매출 관리 대시보드 구축",
+                      desc: "Vue.js 및 Chart.js를 활용한 매출 분석 대시보드 개발",
+                    },
+                    {
+                      title: "챔프포커",
+                      desc: "unity 엔진 기반 게임 웹뷰 최적화",
+                    },
+                    {
+                      title: "러닝 서비스 프로토타입",
+                      desc: "React Native 어플리케이션 프로토타입 설계 및 구현 참여",
                     },
                   ].map((item, idx) => (
                     <div
