@@ -1,4 +1,4 @@
-import { CheckCircle2, Github, Linkedin, User } from "lucide-react";
+import { CheckCircle2, Github, MessageCircle, User } from "lucide-react";
 
 type Props = {
     theme: "dark" | "light";
@@ -42,17 +42,29 @@ export default function AboutSection({ theme, pointColor, pointBorder, glassBase
                                 />
                             </div>
                             <div className="flex gap-4">
-                                <div
-                                    className={`w-10 h-10 rounded-full border ${theme === "dark" ? "border-white/20" : "border-black/10 bg-white/40"} flex items-center justify-center hover:${pointBorder} hover:${pointColor} transition-all cursor-pointer`}
+                                <a
+                                    href="https://github.com/jiyean99"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="GitHub 프로필 (새 탭)"
+                                    className={`w-10 h-10 rounded-full border ${theme === "dark" ? "border-white/20" : "border-black/10 bg-white/40"
+                                        } flex items-center justify-center hover:${pointBorder} hover:${pointColor} transition-all`}
                                 >
                                     <Github size={16} />
-                                </div>
-                                <div
-                                    className={`w-10 h-10 rounded-full border ${theme === "dark" ? "border-white/20" : "border-black/10 bg-white/40"} flex items-center justify-center hover:${pointBorder} hover:${pointColor} transition-all cursor-pointer`}
+                                </a>
+
+                                <a
+                                    href="https://open.kakao.com/o/s081A11h"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="KakaoTalk 오픈채팅 (새 탭)"
+                                    className={`w-10 h-10 rounded-full border ${theme === "dark" ? "border-white/20" : "border-black/10 bg-white/40"
+                                        } flex items-center justify-center hover:${pointBorder} hover:${pointColor} transition-all`}
                                 >
-                                    <Linkedin size={16} />
-                                </div>
+                                    <MessageCircle size={16} />
+                                </a>
                             </div>
+
                         </div>
                     </div>
 
@@ -117,10 +129,15 @@ export default function AboutSection({ theme, pointColor, pointBorder, glassBase
                                         <div className="flex flex-wrap gap-2">
                                             {[
                                                 "React",
+                                                "Vue",
                                                 "TypeScript",
+                                                "Javascript",
+                                                "Styled-Components",
+                                                "Emotion",
                                                 "Tailwind",
                                                 "Three.js",
                                                 "Zustand",
+                                                "MobX",
                                             ].map((t) => (
                                                 <span
                                                     key={t}
@@ -139,10 +156,21 @@ export default function AboutSection({ theme, pointColor, pointBorder, glassBase
                                         </h4>
                                         <div className="flex flex-wrap gap-2">
                                             {[
+                                                "Java",
+                                                "Node.js",
                                                 "Spring Boot",
+                                                "NestJS",
                                                 "JPA",
                                                 "MariaDB",
+                                                "MySQL",
+                                                "Redis",
+                                                "RabbitMQ",
+                                                "Kafka",
+                                                "Docker",
+                                                "Kubernetes",
                                                 "Security",
+                                                "Apache JMeter",
+                                                "Swagger",
                                                 "QueryDSL",
                                             ].map((t) => (
                                                 <span

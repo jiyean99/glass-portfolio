@@ -33,7 +33,7 @@ export default function WritingSection({ theme, pointColor, pointBg, glassBase, 
                                     <span className="text-[10px] font-bold opacity-40 tracking-widest uppercase">@jiyean.dev</span>
                                 </div>
                             </div>
-                            <a href="https://velog.io" target="_blank" rel="noopener noreferrer" className={`w-full py-3 ${theme === 'dark' ? 'bg-white/10' : 'bg-black/5'} rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:${pointBg} hover:text-white md:hover:text-black transition-all group`}>
+                            <a href="https://velog.io/jiyean99/posts" target="_blank" rel="noopener noreferrer" className={`w-full py-3 ${theme === 'dark' ? 'bg-white/10' : 'bg-black/5'} rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:${pointBg} hover:text-white md:hover:text-black transition-all group`}>
                                 블로그 바로가기 <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                             </a>
                         </div>
