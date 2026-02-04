@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import type { Theme } from "../types/portfolio";
 
 export type ThemeClasses = {
+    appTheme: any;
+    appShell: any;
     pointColor: string;
     pointBg: string;
     pointBorder: string;
@@ -32,6 +34,12 @@ export function useThemeClasses(theme: Theme): ThemeClasses {
                 : "bg-white/70 border-white/90 backdrop-blur-lg hover:border-amber-400/50 shadow-[0_4px_24px_rgba(0,0,0,0.04)]";
 
         return {
+            appShell:
+                "min-h-screen transition-colors duration-1000 font-sans selection:bg-yellow-400 selection:text-black overflow-x-hidden",
+            appTheme:
+                theme === "dark"
+                    ? "bg-[#010804] text-white"
+                    : "bg-[#f2f7f3] text-[#111111]",
             pointColor,
             pointBg,
             pointBorder,

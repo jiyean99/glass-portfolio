@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { projects } from "./data/projects";
 import { blogPosts } from "./data/blogPosts";
@@ -48,12 +48,8 @@ const App = () => {
   const handleFirstBloom = () => setHasClicked(true);
 
   return (
-    <div
-      className={`min-h-screen transition-colors duration-1000 ${theme === "dark"
-        ? "bg-[#010804] text-white"
-        : "bg-[#f2f7f3] text-[#111111]"
-        } font-sans selection:bg-yellow-400 selection:text-black overflow-x-hidden`}
-    >
+    <div className={`${ui.appShell} ${ui.appTheme}`}>
+
       <GardenCanvas
         theme={theme}
         cursorRef={cursorRef}
