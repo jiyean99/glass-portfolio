@@ -551,7 +551,9 @@ const App = () => {
             >
               Project
             </a>
-            <a href="#writing" className={`hover:${pointColor} transition-colors`}>
+            <a
+              href="#writing"
+              className={`hover:${pointColor} transition-colors`}>
               Writing
             </a>
           </div>
