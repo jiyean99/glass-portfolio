@@ -66,9 +66,8 @@ export default function AboutSection({ theme, pointColor, pointBorder, glassBase
                                 >
                                     “좋았다면 추억이고 나빴다면 경험이다.”
                                 </div>
-                                <p className="text-base sm:text-lg md:text-2xl font-light opacity-80 leading-relaxed">
-                                    어떤 상황에서도 배움을 놓치지 않으려는 태도로 성장해 온
-                                    이지연입니다.
+                                <p className="text-sm sm:text-base md:text-lg font-light opacity-80 leading-relaxed">
+                                    어떤 상황에서도 배움을 놓치지 않으려는 태도로 성장해 온 이지연입니다.
                                 </p>
                             </div>
 

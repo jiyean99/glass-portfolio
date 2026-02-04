@@ -36,8 +36,6 @@ export default function HeroSection({ theme }: Props) {
                     3년의 필드 경력을 바탕으로 탄탄한 프론트엔드를 구축하고,
                     <br className="hidden sm:block" />
                     이제는 Spring 생태계를 품은 풀스택 개발자로 성장하고 있습니다.
-                    <br className="hidden sm:block" />
-                    바닥을 클릭하여 꽃을 피워주세요.
                 </p>
                 <div className="mt-10 md:mt-12 flex items-center gap-4 animate-bounce">
                     <ChevronDown size={20} className="opacity-30" />
