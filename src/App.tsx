@@ -18,12 +18,13 @@ import ContactSection from "./components/sections/ContactSection";
 import { useProjects } from "./hooks/useProjects";
 import { useThemeClasses } from "./hooks/useThemeClasses";
 import type { Theme } from "./types/portfolio";
+import { useScrolled } from "./hooks/useScrolled";
 
 const App = () => {
   const [theme, setTheme] = useState<Theme>("dark");
   const [plantsCount, setPlantsCount] = useState(0);
   const [hasClicked, setHasClicked] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const scrolled = useScrolled({ threshold: 80 });
 
   const cursorRef = useRef<HTMLDivElement>(null);
 
@@ -45,13 +46,6 @@ const App = () => {
 
   const handleBloom = () => setPlantsCount((prev) => prev + 1);
   const handleFirstBloom = () => setHasClicked(true);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
     <div
