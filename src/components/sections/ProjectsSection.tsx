@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import type { Project, ProjectCategory, Theme } from "../../types/portfolio";
 
+type ProjectFilter = "All" | ProjectCategory;
+
 type Props = {
     theme: Theme;
     pointColor: string;
@@ -17,9 +19,9 @@ type Props = {
     pointFilterActive: string;
     glassProject: string;
 
-    filterOptions: ProjectCategory[];
-    activeFilter: ProjectCategory;
-    setActiveFilter: (v: ProjectCategory) => void;
+    filterOptions: ProjectFilter[];
+    activeFilter: ProjectFilter;
+    setActiveFilter: (v: ProjectFilter) => void;
 
     currentPage: number;
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -48,9 +50,7 @@ export default function ProjectsSection({
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 lg:mb-16 gap-8 lg:gap-10">
                     <div className="space-y-3 md:space-y-4">
-                        <span
-                            className={`${pointColor} font-mono text-xs md:text-sm tracking-widest uppercase block`}
-                        >
+                        <span className={`${pointColor} font-mono text-xs md:text-sm tracking-widest uppercase block`}>
                             03. Project
                         </span>
                         <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">
@@ -65,7 +65,10 @@ export default function ProjectsSection({
                             {filterOptions.map((option) => (
                                 <button
                                     key={option}
-                                    onClick={() => setActiveFilter(option)}
+                                    onClick={() => {
+                                        setActiveFilter(option);
+                                        setCurrentPage(1);
+                                    }}
                                     className={`px-3 py-1 md:px-4 md:py-1.5 rounded-full text-[8px] md:text-[10px] font-bold uppercase tracking-widest transition-all border ${activeFilter === option
                                         ? pointFilterActive
                                         : theme === "dark"
@@ -99,9 +102,7 @@ export default function ProjectsSection({
                                 </span>
 
                                 <button
-                                    onClick={() =>
-                                        setCurrentPage((p) => Math.min(totalPages, p + 1))
-                                    }
+                                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                                     disabled={currentPage === totalPages}
                                     className={`p-2 rounded-full border transition-all ${theme === "dark"
                                         ? "border-white/10"
@@ -153,7 +154,7 @@ export default function ProjectsSection({
                                     <span
                                         className={`text-[9px] md:text-[10px] font-mono font-bold uppercase tracking-widest ${pointColor}`}
                                     >
-                                        {project.category}
+                                        {project.category.join(" · ")}
                                     </span>
 
                                     <div className="flex items-center gap-1.5 text-[8px] md:text-[9px] font-bold opacity-40 group-hover:opacity-80 transition-opacity">
@@ -162,17 +163,12 @@ export default function ProjectsSection({
                                     </div>
                                 </div>
 
-                                <h3
-                                    className={`text-xl md:text-2xl font-black mb-1 group-hover:${pointColor} transition-colors uppercase tracking-tighter leading-tight`}
-                                >
+                                <h3 className="text-xl md:text-2xl font-black mb-1 uppercase tracking-tighter leading-tight">
                                     {project.title}
                                 </h3>
 
                                 <div className="flex items-center gap-1.5 mb-3 md:mb-4 text-[10px] md:text-[11px] font-medium opacity-60">
-                                    <CheckCircle2
-                                        size={12}
-                                        className={`${pointColor} opacity-80`}
-                                    />
+                                    <CheckCircle2 size={12} className={`${pointColor} opacity-80`} />
                                     <span>{project.contribution}</span>
                                 </div>
 
@@ -220,7 +216,6 @@ export default function ProjectsSection({
                         </div>
                     ))}
                 </div>
-
             </div>
         </section>
     );

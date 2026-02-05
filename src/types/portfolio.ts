@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 export type Theme = "dark" | "light";
 
-export type ProjectCategory = "All" | "Frontend" | "Backend" | "Data" | "Creative";
+export type ProjectCategory = "All" | "Frontend" | "Backend" | "Data" | "Creative" ;
 
 export type Project = {
     title: string;
@@ -10,7 +10,7 @@ export type Project = {
     contribution: string;
     period: string;
     tech: string[];
-    category: Exclude<ProjectCategory, "All">;
+    category: Exclude<ProjectCategory, "All"> [];
     github: string;
     demo: string;
     icon: ReactNode;

@@ -35,7 +35,7 @@ export function useThemeClasses(theme: Theme): ThemeClasses {
 
         return {
             appShell:
-                "min-h-screen transition-colors duration-1000 font-sans selection:bg-yellow-400 selection:text-black overflow-x-hidden",
+                "min-h-screen transition-colors duration-1000 font-sans selection:bg-yellow-400 selection:text-black overflow-x-hidden overflow-x-hidden lg:overflow-x-visible",
             appTheme:
                 theme === "dark"
                     ? "bg-[#010804] text-white"

@@ -25,7 +25,7 @@ export default function ExperienceSection({
                     >
                         02. Experience
                     </span>
-                    <h2 className="text-4xl sm:text-6xl md:text-9xl font-black tracking-tighter uppercase leading-none">
+                    <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none max-w-[18ch] md:max-w-none mx-auto md:mx-0">
                         PROFESSIONAL
                         <br />
                         <span className={`italic ${pointColor}`}>EVOLUTION.</span>
@@ -110,7 +110,14 @@ export default function ExperienceSection({
                                         : "border-amber-400/40 bg-white/40"
                                         } flex items-center justify-center font-black shrink-0 group-hover:${pointBg} group-hover:text-white md:group-hover:text-black transition-all`}
                                 >
-                                    <Briefcase size={16} />
+                                    <Briefcase
+                                        size={16}
+                                        className={`
+                                            ${theme === "dark" ? "text-white" : "text-black"}
+                                            hover:${pointColor}
+                                            transition-colors
+                                        `}
+                                    />
                                 </div>
 
                                 <span
