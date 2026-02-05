@@ -54,7 +54,7 @@ export default function WritingSection({ theme, pointColor, pointBg, glassBase, 
                                     </div>
                                     <div className="flex items-center gap-4 opacity-40 group-hover:opacity-100 transition-opacity">
                                         <div className="flex items-center gap-1.5 text-[10px] md:text-xs"><MessageSquare size={14} /> 12</div>
-                                        <div className="flex items-center gap-1.5 text-[10px] md:text-xs"><BookOpen size={14} /> 5 min read</div>
+                                        <div className="flex items-center gap-1.5 text-[10px] md:text-xs"><BookOpen size={14} /> 30 min read</div>
                                     </div>
                                 </div>
                                 <h3 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tighter mb-4 group-hover:text-yellow-400 transition-colors leading-tight">
