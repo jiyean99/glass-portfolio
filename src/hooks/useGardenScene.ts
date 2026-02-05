@@ -5,9 +5,9 @@ type Theme = "dark" | "light";
 
 type UseGardenSceneParams = {
     theme: Theme;
-    onBloom?: () => void; // 꽃 1송이 피었을 때 plantsCount++ 용도 [file:1]
-    onFirstBloom?: () => void; // 첫 클릭 여부 처리 (hasClicked=true) 용도 [file:1]
-    cursorEl?: HTMLDivElement | null; // 커서 DOM 업데이트 용도 [file:1]
+    onBloom?: () => void; // 꽃 1송이 피었을 때 plantsCount++ 용도
+    onFirstBloom?: () => void; // 첫 클릭 여부 처리 (hasClicked=true) 용도 
+    cursorEl?: HTMLDivElement | null; // 커서 DOM 업데이트 용도
 };
 
 export function useGardenScene(
@@ -18,7 +18,7 @@ export function useGardenScene(
     const groundRef = useRef<THREE.Mesh | null>(null);
     const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
 
-    // 1) theme 변경 시 색상 업데이트 (원래 App의 useEffect(theme) 분리) [file:1]
+    // 1) theme 변경 시 색상 업데이트 (원래 App의 useEffect(theme) 분리)
     useEffect(() => {
         if (!sceneRef.current || !groundRef.current) return;
 
@@ -43,7 +43,7 @@ export function useGardenScene(
         mat.emissive.set(groundEmissive);
     }, [theme]);
 
-    // 2) scene 초기화 + 이벤트/애니메이션 (원래 App의 useEffect([]) 분리) [file:1]
+    // 2) scene 초기화 + 이벤트/애니메이션 (원래 App의 useEffect([]) 분리)
     useEffect(() => {
         if (!containerEl) return;
 
@@ -67,7 +67,7 @@ export function useGardenScene(
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.shadowMap.enabled = true;
 
-        // 기존 renderer DOM 제거 후 새로 append (원본 코드 유지) [file:1]
+        // 기존 renderer DOM 제거 후 새로 append (원본 코드 유지)
         if (rendererRef.current?.domElement?.parentNode) {
             rendererRef.current.domElement.parentNode.removeChild(
                 rendererRef.current.domElement,
@@ -245,7 +245,7 @@ export function useGardenScene(
         const onPointerDown = (e: MouseEvent | TouchEvent) => {
             const target = e.target as HTMLElement;
 
-            // 기존 방어 로직 유지: UI 클릭이면 bloom 방지 [file:1]
+            // 기존 방어 로직 유지: UI 클릭이면 bloom 방지
             if (
                 target.closest("button") ||
                 target.closest("nav") ||
@@ -321,6 +321,6 @@ export function useGardenScene(
             groundRef.current = null;
             rendererRef.current = null;
         };
-        // containerEl이 바뀌면 재초기화, theme은 색상 useEffect에서 처리 [file:1]
+        // containerEl이 바뀌면 재초기화, theme은 색상 useEffect에서 처리
     }, [containerEl]);
 }
