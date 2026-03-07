@@ -30,7 +30,7 @@ export default function WritingSection({ theme, pointColor, pointBg, glassBase, 
                                 <div className={`w-12 h-12 rounded-2xl ${pointBg} flex items-center justify-center text-white md:text-black shadow-lg`}><PenTool size={24} /></div>
                                 <div>
                                     <h4 className="font-black tracking-tighter uppercase text-lg">Velog Blog</h4>
-                                    <span className="text-[10px] font-bold opacity-40 tracking-widest uppercase">@jiyean.dev</span>
+                                    <span className="text-[10px] font-bold opacity-40 tracking-widest uppercase">@jiyean99</span>
                                 </div>
                             </div>
                             <a href="https://velog.io/jiyean99/posts" target="_blank" rel="noopener noreferrer" className={`w-full py-3 ${theme === 'dark' ? 'bg-white/10' : 'bg-black/5'} rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:${pointBg} hover:text-white md:hover:text-black transition-all group`}>

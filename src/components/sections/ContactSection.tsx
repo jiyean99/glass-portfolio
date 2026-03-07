@@ -18,7 +18,7 @@ export default function ContactSection({ theme, pointBg }: Props) {
                 </h2>
 
                 <a
-                    href="mailto:contact@jiyean.kr"
+                    href="mailto:wldus0191@naver.com"
                     className={`group flex items-center gap-4 md:gap-6 ${pointBg} text-white md:text-black px-7 py-4 md:px-10 md:py-5 mx-auto rounded-full font-black text-base md:text-xl hover:scale-105 transition-all w-fit uppercase active:scale-95 shadow-xl`}
                 >
                     <Send size={18} />

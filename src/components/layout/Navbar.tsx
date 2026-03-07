@@ -34,7 +34,7 @@ export default function Navbar({
                     J
                 </div>
                 <span className="text-lg md:text-xl font-bold tracking-tighter">
-                    JIYEAN.KR
+                    JIYEAN
                 </span>
             </div>
 
