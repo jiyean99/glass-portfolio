@@ -1,5 +1,6 @@
 import type { Project } from "../types/portfolio";
-import { Cpu, Palette, Flower2, ChartColumnBig, Gamepad2, Volleyball, ClipboardClock, Users } from "lucide-react";
+// import { Cpu, Palette, Flower2, ChartColumnBig, Gamepad2, Volleyball, ClipboardClock, Users } from "lucide-react";
+import { ClipboardClock, Users } from "lucide-react";
 
 export const projects: Project[] = [
     // {
