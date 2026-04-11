@@ -1,0 +1,19 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" rx="24" fill="#0F0C17"/>
+  <rect x="36" y="36" width="1128" height="688" rx="20" fill="url(#bg)"/>
+  <rect x="84" y="92" width="430" height="38" rx="11" fill="#A78BFA" fill-opacity="0.25"/>
+  <rect x="84" y="156" width="660" height="20" rx="8" fill="#FFFFFF" fill-opacity="0.14"/>
+  <rect x="84" y="238" width="292" height="240" rx="16" fill="#C084FC" fill-opacity="0.18"/>
+  <rect x="396" y="238" width="292" height="240" rx="16" fill="#FFFFFF" fill-opacity="0.1"/>
+  <rect x="708" y="238" width="328" height="240" rx="16" fill="#FFFFFF" fill-opacity="0.08"/>
+  <rect x="84" y="506" width="952" height="16" rx="6" fill="#FFFFFF" fill-opacity="0.1"/>
+  <rect x="84" y="536" width="790" height="16" rx="6" fill="#FFFFFF" fill-opacity="0.08"/>
+  <text x="84" y="642" fill="#DDD6FE" font-size="30" font-family="Pretendard, sans-serif" letter-spacing="2">SALES DASHBOARD PREVIEW</text>
+  <defs>
+    <linearGradient id="bg" x1="36" y1="36" x2="1100" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E1B4B"/>
+      <stop offset="0.55" stop-color="#312E81"/>
+      <stop offset="1" stop-color="#3B0764"/>
+    </linearGradient>
+  </defs>
+</svg>

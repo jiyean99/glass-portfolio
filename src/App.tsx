@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { projects } from "./data/projects";
 import { blogPosts } from "./data/blogPosts";
@@ -46,6 +46,10 @@ const App = () => {
 
   const handleBloom = () => setPlantsCount((prev) => prev + 1);
   const handleFirstBloom = () => setHasClicked(true);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   return (
     <div className={`${ui.appShell} ${ui.appTheme}`}>

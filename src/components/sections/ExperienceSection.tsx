@@ -1,5 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { Briefcase, Download, Zap } from "lucide-react";
+import {
+    Activity,
+    BarChart3,
+    Briefcase,
+    Calendar,
+    ChevronLeft,
+    ChevronRight,
+    Check,
+    ExternalLink,
+    Gamepad2,
+    MapPin,
+    Trophy,
+    X,
+    Zap,
+} from "lucide-react";
 import type { Theme } from "../../types/portfolio";
 
 /** 스크롤에 따라 변하는 선의 투명도 범위*/
@@ -20,6 +34,131 @@ type Props = {
     glassBase: string;
 };
 
+type ExperienceItem = {
+    title: string;
+    desc: string;
+    skills: string[];
+    role: string;
+    contributions: string[];
+    outcome: string;
+    previewImages: string[];
+    liveUrl?: string;
+};
+
+const JAM_PUBLIC_EXPERIENCES: ExperienceItem[] = [
+    {
+        title: "승부사온라인",
+        desc: "모바일 중심 실시간 스포츠베팅 웹게임 유지 보수",
+        skills: ["Spring Boot", "MySQL", "WebSocket", "AWS", "Redis"],
+        role: "실시간 게임 서비스 유지보수 및 성능 안정화",
+        contributions: [
+            "Spring Boot 기반 API와 WebSocket 이벤트 흐름을 개선해 실시간 처리 안정성을 높였습니다.",
+            "Redis 캐시 전략과 MySQL 쿼리 구조를 점검해 빈번한 조회 구간의 응답 지연을 줄였습니다.",
+            "AWS 운영 환경에서 배포/로그 모니터링 포인트를 정리해 장애 대응 속도를 개선했습니다.",
+        ],
+        outcome: "서비스 운영 안정성과 실시간 응답 품질을 높여 유지보수 효율을 개선했습니다.",
+        previewImages: [
+            "/mock/project-preview-sports.svg",
+            "/mock/project-preview-dashboard.svg",
+            "/mock/project-preview-unity.svg",
+        ],
+        liveUrl: "https://www.adventurer.co.kr/",
+    },
+    {
+        title: "사내 매출 관리 대시보드 구축",
+        desc: "Vue.js 및 Chart.js를 활용한 매출 분석 대시보드 개발",
+        skills: ["Vue.js", "Chart.js", "REST API", "JavaScript", "MySQL"],
+        role: "매출 데이터 시각화 대시보드 프론트엔드 개발",
+        contributions: [
+            "Vue.js 컴포넌트 구조를 설계해 필터/기간/지표 변경 시 재사용 가능한 UI를 구성했습니다.",
+            "Chart.js로 핵심 지표를 시각화하고, REST API 연동으로 데이터 동기화를 자동화했습니다.",
+            "사용자 관점에서 탐색 흐름을 개선해 리포트 조회 시간을 단축할 수 있도록 구성했습니다.",
+        ],
+        outcome: "매출 추이 확인과 의사결정에 필요한 데이터 접근성을 크게 높였습니다.",
+        previewImages: [
+            "/mock/project-preview-dashboard.svg",
+        ],
+    },
+    {
+        title: "챔프포커",
+        desc: "Unity 엔진 기반 게임 웹뷰 최적화",
+        skills: ["Unity", "WebView", "JavaScript Bridge", "Performance"],
+        role: "Unity 웹뷰 인터페이스 최적화 및 브릿지 안정화",
+        contributions: [
+            "웹뷰 내 렌더링 병목 구간을 점검해 초기 로딩과 화면 전환 체감 속도를 개선했습니다.",
+            "Unity-JavaScript Bridge 통신 규격을 정리해 이벤트 누락/중복 이슈를 줄였습니다.",
+            "반복 동작 시 메모리 사용 패턴을 점검해 장시간 실행 안정성을 높였습니다.",
+        ],
+        outcome: "웹뷰 기반 플레이 경험을 개선하고 브릿지 연동 신뢰도를 높였습니다.",
+        previewImages: [
+            "/mock/project-preview-unity.svg",
+            "/mock/project-preview-sports.svg",
+        ],
+        liveUrl: "https://champpoker.co.kr/",
+    },
+    {
+        title: "러닝 서비스 프로토타입",
+        desc: "React Native 어플리케이션 프로토타입 설계 및 구현 참여",
+        skills: ["React Native", "Expo", "API Integration", "UI/UX"],
+        role: "모바일 러닝 앱 프로토타입 구현",
+        contributions: [
+            "React Native + Expo 기반으로 핵심 플로우를 빠르게 구현해 기능 검증 속도를 높였습니다.",
+            "API 연동 구조를 정리해 화면별 데이터 패칭과 에러 처리 패턴을 통일했습니다.",
+            "UI/UX 프로토타입을 반복 개선해 사용자 피드백 반영 주기를 단축했습니다.",
+        ],
+        outcome: "아이디어 검증에 필요한 MVP 품질의 프로토타입을 빠르게 확보했습니다.",
+        previewImages: [
+            "/mock/project-preview-running.svg",
+            "/mock/project-preview-dashboard.svg",
+        ],
+    },
+];
+
+const BOOTCAMP_HIGHLIGHTS = [
+    "Spring Boot 기반 REST API 구현 및 DB 연동 실습",
+    "Docker/Kubernetes 기반 배포 흐름과 운영 기초 학습",
+    "Vue.js 화면 구현과 API 연동을 통한 프론트-백 통합 실습",
+    "팀 프로젝트를 통해 협업 방식과 개발 프로세스 경험",
+];
+
+const BOOTCAMP_SKILLS = [
+    "Java",
+    "Spring Boot",
+    "JPA",
+    "MySQL",
+    "Redis",
+    "AWS",
+    "Docker",
+    "Kubernetes",
+    "Vue.js",
+];
+
+const JAM_PUBLIC_HIGHLIGHTS = [
+    "실시간 웹게임 유지보수와 대시보드 개발 등 다양한 서비스 개선 업무를 수행했습니다.",
+    "프론트엔드와 백엔드 연동 구간을 안정화하며 기능 배포와 운영 대응을 지원했습니다.",
+    "프로젝트별 요구사항에 맞춰 성능, 데이터 시각화, 웹뷰 최적화 작업을 진행했습니다.",
+];
+
+const JAM_PUBLIC_CORE_SKILLS = [
+    "Spring Boot",
+    "MySQL",
+    "WebSocket",
+    "AWS",
+    "Redis",
+    "Vue.js",
+    "Chart.js",
+    "JavaScript",
+    "Unity",
+    "React Native",
+];
+
+const PROJECT_ICON_BY_TITLE = {
+    승부사온라인: Trophy,
+    "사내 매출 관리 대시보드 구축": BarChart3,
+    챔프포커: Gamepad2,
+    "러닝 서비스 프로토타입": Activity,
+} as const;
+
 export default function ExperienceSection({
     theme,
     pointColor,
@@ -30,6 +169,8 @@ export default function ExperienceSection({
     const sectionRef = useRef<HTMLElement>(null);
     const timelineRef = useRef<HTMLDivElement>(null);
     const [lineProgress, setLineProgress] = useState(0);
+    const [selectedExperience, setSelectedExperience] = useState<ExperienceItem | null>(null);
+    const [activePreviewIndex, setActivePreviewIndex] = useState(0);
     const rafRef = useRef<number | null>(null);
 
     useEffect(() => {
@@ -63,19 +204,42 @@ export default function ExperienceSection({
         };
     }, []);
 
+    useEffect(() => {
+        if (!selectedExperience) return;
+
+        const originalOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setSelectedExperience(null);
+            }
+        };
+
+        window.addEventListener("keydown", onKeyDown);
+        return () => {
+            window.removeEventListener("keydown", onKeyDown);
+            document.body.style.overflow = originalOverflow;
+        };
+    }, [selectedExperience]);
+
+    useEffect(() => {
+        setActivePreviewIndex(0);
+    }, [selectedExperience?.title]);
+
     const lineOpacity = LINE_OPACITY_MIN + (LINE_OPACITY_MAX - LINE_OPACITY_MIN) * lineProgress;
     const lineHeightVh = (LINE_HEIGHT_MIN + lineProgress * (1 - LINE_HEIGHT_MIN)) * LINE_STICKY_MAX_VH;
 
     return (
-        <section ref={sectionRef} id="experience" className="relative py-20 md:py-48 px-6 md:px-24 z-10">
+        <section ref={sectionRef} id="experience" className="relative py-20 md:py-48 px-6 md:px-24">
             <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row items-baseline gap-4 md:gap-6 mb-16 md:mb-24">
+                <div className="flex flex-col items-center gap-4 md:gap-6 mb-16 md:mb-24 text-center">
                     <span
                         className={`${pointColor} font-mono text-xs md:text-sm tracking-widest uppercase block`}
                     >
                         02. Experience
                     </span>
-                    <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none max-w-[18ch] md:max-w-none mx-auto md:mx-0">
+                    <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none text-center mx-auto">
                         PROFESSIONAL
                         <br />
                         <span className={`italic ${pointColor}`}>EVOLUTION.</span>
@@ -125,90 +289,74 @@ export default function ExperienceSection({
                         <div
                             className={`${glassBase} p-7 md:p-10 rounded-[30px] md:rounded-[40px] group-hover:${pointBorder}/30 transition-all duration-500 border`}
                         >
-                            <p className="text-sm md:text-lg font-light leading-relaxed opacity-70 mb-6 md:mb-8 italic">
-                                프론트엔드 경력을 기반으로 Spring Boot 생태계를 마스터하며 풀스택
-                                역량을 강화하고 있습니다.
-                            </p>
-
                             <div className="space-y-6 md:space-y-8">
-                                {[
-                                    {
-                                        title: "BACKEND",
-                                        desc: "Java와 Spring Boot를 기반으로 서버 구조를 설계하고, JPA와 MySQL, Redis를 활용해 안정적인 데이터 처리와 캐싱 구조를 구현했습니다. REST API를 중심으로 서비스 로직을 구성했습니다.",
-                                        skills: ["Java", "Spring Boot", "JPA", "MySQL", "Redis", "REST API"],
-                                    },
-                                    {
-                                        title: "INFRA",
-                                        desc: "AWS 환경에서 서비스 배포 인프라를 구축하고, Docker와 Kubernetes를 사용해 컨테이너 기반 운영 환경을 구성했습니다. CI/CD 파이프라인을 통해 자동 배포 및 서비스 운영 효율화를 실현했습니다.",
-                                        skills: ["AWS", "Docker", "Kubernetes", "Architecture", "DevOps"],
-                                    },
-                                    {
-                                        title: "FRONTEND",
-                                        desc: "Vue.js를 활용해 사용자 인터페이스를 개발하고, 백엔드 API 연동을 통해 실시간 데이터가 반영되는 화면을 구현했습니다. 반응형 레이아웃 설계로 다양한 환경에 대응하는 UI를 완성했습니다.",
-                                        skills: ["HTML", "CSS", "JavaScript", "Vue.js"],
-                                    },
-                                ].map((item, idx) => (
-                                    <div key={idx} className="flex flex-col md:items-start group/item">
-                                        <span
-                                            className={`text-[9px] md:text-[10px] font-black uppercase tracking-widest mb-1 ${pointColor} opacity-70`}
-                                        >
-                                            {item.title}
+                                <div>
+                                    <h4 className="text-xl md:text-2xl font-black tracking-tight mb-2">
+                                        한화시스템 응용 SW 엔지니어링
+                                    </h4>
+                                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-sm opacity-65">
+                                        <span className="inline-flex items-center gap-1.5">
+                                            <MapPin size={13} />
+                                            오프라인
                                         </span>
-                                        <span className="text-xs md:text-base opacity-60 font-light group-hover/item:opacity-100 transition-opacity mb-2">
-                                            {item.desc}
+                                        <span className="inline-flex items-center gap-1.5">
+                                            <Calendar size={13} />
+                                            2025.11 - 2026.05
                                         </span>
-
-                                        {/* skill map */}
-                                        <div className="flex flex-wrap gap-2">
-                                            {item.skills.map((skill) => (
-                                                <span
-                                                    key={skill}
-                                                    className={`px-3 py-1.5 md:px-4 md:py-2 ${theme === "dark"
-                                                        ? "bg-yellow-400/5 border-yellow-400/10 text-yellow-400/80"
-                                                        : "bg-amber-400/10 border-amber-400/40 text-amber-600/80"
-                                                        } rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest border shadow-sm`}
-                                                >
-                                                    {skill}
-                                                </span>
-                                            ))}
-                                        </div>
                                     </div>
-                                ))}
-                            </div>
-                            <div className="flex justify-start mt-6 md:mt-8">
-                                <a
-                                    href="/resume.pdf"
-                                    download
-                                    className={`inline-flex items-center justify-center gap-2 py-2.5 md:py-3 px-4 md:px-5 ${pointBg} text-white md:text-black border-transparent rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all border shadow-lg`}
-                                >
-                                    <Download size={12} className="shrink-0" />
-                                    포트폴리오
-                                </a>
+                                </div>
+
+                                <div>
+                                    <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-3 ${pointColor}`}>
+                                        주요 성과 및 활동
+                                    </p>
+                                    <ul className="space-y-2.5">
+                                        {BOOTCAMP_HIGHLIGHTS.map((highlight) => (
+                                            <li key={highlight} className="flex items-start gap-2.5">
+                                                <Check size={14} className={`mt-0.5 shrink-0 ${pointColor}`} />
+                                                <span className="text-xs md:text-sm opacity-75 leading-relaxed">
+                                                    {highlight}
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-3 ${pointColor}`}>
+                                        주요 기술
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {BOOTCAMP_SKILLS.map((skill) => (
+                                            <span
+                                                key={skill}
+                                                className={`px-3 py-1.5 md:px-4 md:py-2 ${theme === "dark"
+                                                    ? "bg-yellow-400/5 border-yellow-400/10 text-yellow-400/80"
+                                                    : "bg-amber-400/10 border-amber-400/40 text-amber-600/80"
+                                                    } rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest border shadow-sm`}
+                                            >
+                                                {skill}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div className="relative grid md:grid-cols-2 gap-8 md:gap-32 group">
-                        <div className="md:order-2 md:pl-10">
-                            <div className="inline-flex items-center gap-4 mb-3">
+                        <div className="md:text-right md:pr-10">
+                            <div className="inline-flex items-center gap-4 mb-3 md:flex-row-reverse">
                                 <div
-                                    className={`w-8 h-8 md:w-10 md:h-10 rounded-full border ${theme === "dark"
-                                        ? "border-yellow-400/30"
-                                        : "border-amber-400/40 bg-white/40"
-                                        } flex items-center justify-center font-black shrink-0 group-hover:${pointBg} group-hover:text-white md:group-hover:text-black transition-all`}
+                                    className={`w-8 h-8 md:w-10 md:h-10 rounded-full ${pointBg} text-white md:text-black flex items-center justify-center font-black animate-pulse shrink-0 shadow-lg`}
                                 >
                                     <Briefcase
                                         size={16}
-                                        className={`
-                                            ${theme === "dark" ? "text-white" : "text-black"}
-                                            hover:${pointColor}
-                                            transition-colors
-                                        `}
                                     />
                                 </div>
 
                                 <span
-                                    className={`font-mono text-xs md:text-sm font-bold tracking-widest uppercase opacity-40 group-hover:opacity-100 group-hover:${pointColor}`}
+                                    className={`${pointColor} font-mono text-xs md:text-sm font-bold tracking-widest uppercase`}
                                 >
                                     2023.03 — 2025.08
                                 </span>
@@ -221,79 +369,277 @@ export default function ExperienceSection({
                             </h3>
 
                             <p className="text-[9px] md:text-xs font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] opacity-40 mb-4 md:mb-8">
-                                Web Solution Developer
+                                Web Front Developer
                             </p>
                         </div>
 
                         <div
-                            className={`${glassBase} p-7 md:p-10 rounded-[30px] md:rounded-[40px] group-hover:${pointBorder}/20 transition-all duration-500 md:text-right border`}
+                            className={`${glassBase} p-7 md:p-10 rounded-[30px] md:rounded-[40px] group-hover:${pointBorder}/20 transition-all duration-500 border`}
                         >
-                            <div className="space-y-4 md:space-y-6">
-                                {[
-                                    {
-                                        title: "승부사온라인",
-                                        desc: "모바일 중심 실시간 스포츠베팅 웹게임 유지 보수",
-                                        skills: ["Spring Boot", "MySQL", "WebSocket", "AWS", "Redis"],
-                                    },
-                                    {
-                                        title: "사내 매출 관리 대시보드 구축",
-                                        desc: "Vue.js 및 Chart.js를 활용한 매출 분석 대시보드 개발",
-                                        skills: ["Vue.js", "Chart.js", "REST API", "JavaScript", "MySQL"],
-                                    },
-                                    {
-                                        title: "챔프포커",
-                                        desc: "Unity 엔진 기반 게임 웹뷰 최적화",
-                                        skills: ["Unity", "WebView", "JavaScript Bridge", "Performance"],
-                                    },
-                                    {
-                                        title: "러닝 서비스 프로토타입",
-                                        desc: "React Native 어플리케이션 프로토타입 설계 및 구현 참여",
-                                        skills: ["React Native", "Expo", "API Integration", "UI/UX"],
-                                    },
-                                ].map((item, idx) => (
-                                    <div key={idx} className="flex flex-col md:items-end group/item">
-                                        <span
-                                            className={`text-[9px] md:text-[10px] font-black uppercase tracking-widest mb-1 ${pointColor} opacity-70`}
-                                        >
-                                            {item.title}
+                            <div className="space-y-6 md:space-y-8">
+                                <div>
+                                    <h4 className="text-xl md:text-2xl font-black tracking-tight mb-2">
+                                        웹 솔루션 개발 및 운영
+                                    </h4>
+                                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-sm opacity-65">
+                                        <span className="inline-flex items-center gap-1.5">
+                                            <MapPin size={13} />
+                                            기획디자인실
                                         </span>
-                                        <span className="text-xs md:text-base opacity-60 font-light group-hover/item:opacity-100 transition-opacity mb-2">
-                                            {item.desc}
+                                        <span className="inline-flex items-center gap-1.5">
+                                            <Calendar size={13} />
+                                            2023.03 - 2025.08
                                         </span>
-
-                                        {/* skills map */}
-                                        <div className="flex flex-wrap justify-end gap-2">
-                                            {item.skills.map((skill) => (
-                                                <span
-                                                    key={skill}
-                                                    className={`px-3 py-1.5 md:px-4 md:py-2 ${theme === "dark"
-                                                        ? "bg-yellow-400/5 border-yellow-400/10 text-yellow-400/80"
-                                                        : "bg-amber-400/10 border-amber-400/40 text-amber-600/80"
-                                                        } rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest border shadow-sm`}
-                                                >
-                                                    {skill}
-                                                </span>
-                                            ))}
-                                        </div>
                                     </div>
-                                ))}
-                            </div>
+                                </div>
 
-                            <div className="flex justify-end mt-6 md:mt-8">
-                                <a
-                                    href="/resume.pdf"
-                                    download
-                                    className={`inline-flex items-center justify-center gap-2 py-2.5 md:py-3 px-4 md:px-5 ${pointBg} text-white md:text-black border-transparent rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all border shadow-lg`}
-                                >
-                                    <Download size={12} className="shrink-0" />
-                                    경력기술서
-                                </a>
+                                <div>
+                                    <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-3 ${pointColor}`}>
+                                        주요 성과 및 활동
+                                    </p>
+                                    <ul className="space-y-2.5">
+                                        {JAM_PUBLIC_HIGHLIGHTS.map((highlight) => (
+                                            <li key={highlight} className="flex items-start gap-2.5">
+                                                <Check size={14} className={`mt-0.5 shrink-0 ${pointColor}`} />
+                                                <span className="text-xs md:text-sm opacity-75 leading-relaxed">
+                                                    {highlight}
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-3 ${pointColor}`}>
+                                        핵심 기술
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {JAM_PUBLIC_CORE_SKILLS.map((skill) => (
+                                            <span
+                                                key={skill}
+                                                className={`px-3 py-1.5 md:px-4 md:py-2 ${theme === "dark"
+                                                    ? "bg-yellow-400/5 border-yellow-400/10 text-yellow-400/80"
+                                                    : "bg-amber-400/10 border-amber-400/40 text-amber-600/80"
+                                                    } rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest border shadow-sm`}
+                                            >
+                                                {skill}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-3 ${pointColor}`}>
+                                        참여 프로젝트
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {JAM_PUBLIC_EXPERIENCES.map((item) => (
+                                            (() => {
+                                                const Icon =
+                                                    PROJECT_ICON_BY_TITLE[
+                                                    item.title as keyof typeof PROJECT_ICON_BY_TITLE
+                                                    ] ?? Briefcase;
+                                                return (
+                                            <button
+                                                key={item.title}
+                                                type="button"
+                                                onClick={() => setSelectedExperience(item)}
+                                                className={`inline-flex items-center justify-center gap-2 py-2.5 md:py-3 px-4 md:px-5 ${pointBg} text-white md:text-black border-transparent rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all border shadow-lg`}
+                                            >
+                                                <Icon size={12} className="shrink-0" />
+                                                {item.title}
+                                            </button>
+                                                );
+                                            })()
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
+            {selectedExperience ? (
+                <div
+                    className={`fixed inset-0 z-[200] flex items-center justify-center p-0 md:p-8 ${theme === "dark"
+                        ? "bg-black/75 backdrop-blur-sm"
+                        : "bg-[#f8f8f8]/70 backdrop-blur-[2px]"
+                        }`}
+                    onClick={() => setSelectedExperience(null)}
+                    role="presentation"
+                >
+                    <div
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label={`${selectedExperience.title} 상세 정보`}
+                        className={`${glassBase} relative w-full h-[100dvh] max-h-[100dvh] md:h-auto md:max-h-[88vh] max-w-none md:max-w-5xl border-0 md:border rounded-none md:rounded-[30px] overflow-hidden shadow-none md:shadow-[0_16px_60px_rgba(0,0,0,0.45)]`}
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        <button
+                            type="button"
+                            onClick={() => setSelectedExperience(null)}
+                            className="absolute top-4 right-4 md:top-3 md:right-3 z-20 w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/20 inline-flex items-center justify-center bg-black/35 opacity-90 hover:opacity-100 hover:bg-white/10 transition-all"
+                            aria-label="상세 모달 닫기"
+                        >
+                            <X size={16} />
+                        </button>
+
+                        <div className="grid md:grid-cols-[1.1fr_0.9fr] h-full overflow-y-auto md:overflow-hidden">
+                            <div className="px-5 pt-16 pb-6 md:px-8 md:py-8 overflow-visible md:overflow-y-auto border-b md:border-b-0 md:border-r border-white/10">
+                                <p
+                                    className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-2 ${pointColor} opacity-90`}
+                                >
+                                    Project Detail
+                                </p>
+                                <div className="flex items-center gap-2.5">
+                                    <h4 className="text-2xl md:text-3xl font-black tracking-tight">
+                                        {selectedExperience.title}
+                                    </h4>
+                                    {selectedExperience.liveUrl ? (
+                                        <a
+                                            href={selectedExperience.liveUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={`inline-flex items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-full border transition-all hover:brightness-110 ${theme === "dark"
+                                                ? "border-yellow-400/40 bg-yellow-400/10 text-yellow-300"
+                                                : "border-amber-400/50 bg-amber-400/15 text-amber-700"
+                                                }`}
+                                            aria-label={`${selectedExperience.title} 바로가기`}
+                                            title="서비스 바로가기"
+                                        >
+                                            <ExternalLink size={14} />
+                                        </a>
+                                    ) : null}
+                                </div>
+                                <p className="mt-2 text-sm md:text-base opacity-75 leading-relaxed">
+                                    {selectedExperience.desc}
+                                </p>
+
+                                <div className="mt-6 md:mt-7 space-y-5">
+                                    <div>
+                                        <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-2 ${pointColor} opacity-90`}>
+                                            역할
+                                        </p>
+                                        <p className="text-sm md:text-base opacity-90 leading-relaxed">
+                                            {selectedExperience.role}
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-2 ${pointColor} opacity-90`}>
+                                            주요 기여
+                                        </p>
+                                        <ul className="space-y-2.5 text-sm md:text-base opacity-90 list-disc pl-5">
+                                            {selectedExperience.contributions.map((contribution) => (
+                                                <li key={contribution} className="leading-relaxed">{contribution}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-2 ${pointColor} opacity-90`}>
+                                            성과
+                                        </p>
+                                        <p className="text-sm md:text-base opacity-90 leading-relaxed">
+                                            {selectedExperience.outcome}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="relative px-5 py-6 md:px-7 md:py-8 overflow-visible md:overflow-y-auto border-t md:border-t-0 border-white/10">
+                                <div className={`absolute inset-0 ${theme === "dark" ? "bg-gradient-to-br from-yellow-400/12 via-transparent to-yellow-400/6" : "bg-gradient-to-br from-amber-400/18 via-transparent to-amber-400/8"}`} />
+                                <div className="relative h-full flex flex-col">
+                                    <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-3 ${pointColor} opacity-90`}>
+                                        Preview
+                                    </p>
+
+                                    <div className="rounded-2xl border border-white/15 bg-white/[0.03] p-2 md:p-2.5 mb-4">
+                                        <div className="relative">
+                                            <img
+                                                src={selectedExperience.previewImages[activePreviewIndex]}
+                                                alt={`${selectedExperience.title} 프리뷰 ${activePreviewIndex + 1}`}
+                                                className="w-full h-40 md:h-52 object-cover rounded-xl border border-white/10"
+                                            />
+                                            {selectedExperience.previewImages.length > 1 ? (
+                                                <>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                            setActivePreviewIndex((prev) =>
+                                                                prev === 0
+                                                                    ? selectedExperience.previewImages.length - 1
+                                                                    : prev - 1
+                                                            )
+                                                        }
+                                                        className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border border-white/25 bg-black/35 inline-flex items-center justify-center hover:bg-black/55 transition-colors"
+                                                        aria-label="이전 이미지"
+                                                    >
+                                                        <ChevronLeft size={14} />
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                            setActivePreviewIndex((prev) =>
+                                                                prev === selectedExperience.previewImages.length - 1
+                                                                    ? 0
+                                                                    : prev + 1
+                                                            )
+                                                        }
+                                                        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border border-white/25 bg-black/35 inline-flex items-center justify-center hover:bg-black/55 transition-colors"
+                                                        aria-label="다음 이미지"
+                                                    >
+                                                        <ChevronRight size={14} />
+                                                    </button>
+                                                </>
+                                            ) : null}
+                                        </div>
+
+                                        {selectedExperience.previewImages.length > 1 ? (
+                                            <div className="mt-3 flex items-center justify-center gap-1.5">
+                                                {selectedExperience.previewImages.map((imagePath, index) => (
+                                                    <button
+                                                        key={`${imagePath}-${index}`}
+                                                        type="button"
+                                                        onClick={() => setActivePreviewIndex(index)}
+                                                        className={`h-1.5 rounded-full transition-all ${index === activePreviewIndex
+                                                            ? theme === "dark"
+                                                                ? "w-5 bg-yellow-300"
+                                                                : "w-5 bg-amber-500"
+                                                            : "w-1.5 bg-white/35"
+                                                            }`}
+                                                        aria-label={`프리뷰 ${index + 1} 보기`}
+                                                    />
+                                                ))}
+                                            </div>
+                                        ) : null}
+                                    </div>
+
+                                    <div className="rounded-2xl border border-white/15 bg-white/[0.03] p-4 md:p-5">
+                                        <p className="text-[11px] md:text-xs font-bold uppercase tracking-wider opacity-60 mb-3">
+                                            Stack
+                                        </p>
+                                        <div className="flex flex-wrap gap-2">
+                                            {selectedExperience.skills.map((skill) => (
+                                                <span
+                                                    key={skill}
+                                                    className={`px-3 py-1.5 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest border ${theme === "dark"
+                                                        ? "bg-yellow-400/10 border-yellow-400/25 text-yellow-300/90"
+                                                        : "bg-amber-400/15 border-amber-400/50 text-amber-700"
+                                                        }`}
+                                                >
+                                                    {skill}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ) : null}
         </section>
     );
 }

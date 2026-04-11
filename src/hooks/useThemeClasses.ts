@@ -39,7 +39,7 @@ export function useThemeClasses(theme: Theme): ThemeClasses {
             appTheme:
                 theme === "dark"
                     ? "bg-[#010804] text-white"
-                    : "bg-[#f2f7f3] text-[#111111]",
+                    : "bg-[#f8f8f8] text-[#111111]",
             pointColor,
             pointBg,
             pointBorder,

@@ -1,0 +1,21 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" rx="24" fill="#081014"/>
+  <rect x="36" y="36" width="1128" height="688" rx="20" fill="url(#bg)"/>
+  <circle cx="1040" cy="150" r="90" fill="#22D3EE" fill-opacity="0.16"/>
+  <rect x="84" y="96" width="360" height="34" rx="10" fill="#FACC15" fill-opacity="0.25"/>
+  <rect x="84" y="152" width="580" height="20" rx="8" fill="#FFFFFF" fill-opacity="0.14"/>
+  <rect x="84" y="186" width="440" height="20" rx="8" fill="#FFFFFF" fill-opacity="0.1"/>
+  <rect x="84" y="250" width="500" height="210" rx="18" fill="#0EA5E9" fill-opacity="0.16"/>
+  <rect x="610" y="250" width="426" height="96" rx="14" fill="#FFFFFF" fill-opacity="0.1"/>
+  <rect x="610" y="364" width="426" height="96" rx="14" fill="#FFFFFF" fill-opacity="0.08"/>
+  <rect x="84" y="500" width="952" height="16" rx="6" fill="#FFFFFF" fill-opacity="0.11"/>
+  <rect x="84" y="530" width="840" height="16" rx="6" fill="#FFFFFF" fill-opacity="0.09"/>
+  <text x="84" y="642" fill="#67E8F9" font-size="30" font-family="Pretendard, sans-serif" letter-spacing="2">SPORTS LIVE SERVICE PREVIEW</text>
+  <defs>
+    <linearGradient id="bg" x1="36" y1="36" x2="1100" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="0.55" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0B1323"/>
+    </linearGradient>
+  </defs>
+</svg>

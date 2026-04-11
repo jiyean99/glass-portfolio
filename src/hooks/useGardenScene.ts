@@ -23,10 +23,10 @@ export function useGardenScene(
         if (!sceneRef.current || !groundRef.current) return;
 
         const isDark = theme === "dark";
-        const bgColor = isDark ? 0x010804 : 0xf2f7f3;
-        const fogColor = isDark ? 0x010804 : 0xf2f7f3;
-        const groundColor = isDark ? 0x051a0b : 0xe2ede4;
-        const groundEmissive = isDark ? 0x020f06 : 0xd2dfd4;
+        const bgColor = isDark ? 0x010804 : 0xf8f8f8;
+        const fogColor = isDark ? 0x010804 : 0xf8f8f8;
+        const groundColor = isDark ? 0x051a0b : 0xeeeeee;
+        const groundEmissive = isDark ? 0x020f06 : 0xcfcfcf;
 
         if (sceneRef.current.background instanceof THREE.Color) {
             sceneRef.current.background.set(bgColor);
@@ -51,8 +51,8 @@ export function useGardenScene(
 
         const scene = new THREE.Scene();
         sceneRef.current = scene;
-        scene.background = new THREE.Color(isDark ? 0x010804 : 0xf2f7f3);
-        scene.fog = new THREE.FogExp2(isDark ? 0x010804 : 0xf2f7f3, 0.007);
+        scene.background = new THREE.Color(isDark ? 0x010804 : 0xf8f8f8);
+        scene.fog = new THREE.FogExp2(isDark ? 0x010804 : 0xf8f8f8, 0.007);
 
         const camera = new THREE.PerspectiveCamera(
             60,
@@ -89,10 +89,10 @@ export function useGardenScene(
 
         const groundGeo = new THREE.PlaneGeometry(2000, 2000);
         const groundMat = new THREE.MeshStandardMaterial({
-            color: isDark ? 0x051a0b : 0xe2ede4,
+            color: isDark ? 0x051a0b : 0xeeeeee,
             roughness: 0.8,
             metalness: 0.1,
-            emissive: isDark ? 0x020f06 : 0xd2dfd4,
+            emissive: isDark ? 0x020f06 : 0xcfcfcf,
             emissiveIntensity: 0.4,
         });
         const ground = new THREE.Mesh(groundGeo, groundMat);
@@ -123,7 +123,9 @@ export function useGardenScene(
 
             const stemCurve = new THREE.CatmullRomCurve3(curvePoints);
             const stemGeo = new THREE.TubeGeometry(stemCurve, 20, 0.15, 8, false);
-            const stemMat = new THREE.MeshStandardMaterial({ color: 0x3d7a36 });
+            const stemMat = new THREE.MeshStandardMaterial({
+                color: isDark ? 0x3d7a36 : 0x8b9095,
+            });
             const stem = new THREE.Mesh(stemGeo, stemMat);
             group.add(stem);
 
