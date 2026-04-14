@@ -1,6 +1,6 @@
 import type { Project } from "../types/portfolio";
 // import { Cpu, Palette, Flower2, ChartColumnBig, Gamepad2, Volleyball, ClipboardClock, Users } from "lucide-react";
-import { ClipboardClock, Users } from "lucide-react";
+import { Database, Ticket, UsersRound } from "lucide-react";
 
 export const projects: Project[] = [
     // {
@@ -44,7 +44,7 @@ export const projects: Project[] = [
         tech: ["Java", "Spring Boot", "MySQL", "Full Stack"],
         category: ["Backend", "Data"],
         github: "https://github.com/beyond-sw-camp/be23-1st-team1-GymKKong",
-        icon: <ClipboardClock size={24} />,
+        icon: <Database size={24} />,
     },
     {
         title: "Articket : 공연 예매 플랫폼",
@@ -55,7 +55,33 @@ export const projects: Project[] = [
         category: ["Backend", "Data", "Frontend"],
         github: "https://github.com/beyond-sw-camp/be23-2nd-team5-articket-be",
         demo: "https://demo.com",
-        icon: <Users size={24} />,
+        icon: <Ticket size={24} />,
+    },
+    {
+        title: "Workforce : B2B HR 플랫폼",
+        desc: "기업용 인사/조직 운영 흐름을 지원하는 B2B HR 프로젝트로, Spring/FastAPI 기반 백엔드와 Vue 프론트, AWS 인프라를 통합해 구축",
+        contribution: "백엔드/인프라 연동 및 핵심 기능 구현 (기여도 더미 35%)",
+        period: "2026.03 - 2026.05 (9WEEK)",
+        tech: [
+            "Java",
+            "Spring Boot",
+            "Spring Security",
+            "JPA",
+            "JWT",
+            "WebSocket",
+            "Python",
+            "FastAPI",
+            "LangChain",
+            "Vue.js",
+            "TypeScript",
+            "Chart.js",
+            "MariaDB",
+            "AWS",
+            "GitHub Actions",
+        ],
+        category: ["Backend", "Frontend", "Data"],
+        github: "https://github.com/beyond-sw-camp/be23-fin-4team-workforce-be",
+        icon: <UsersRound size={24} />,
     },
     // {
     //     title: "Garden Portfolio",

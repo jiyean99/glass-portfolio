@@ -65,6 +65,19 @@ const PROJECT_DETAIL_MAP: Record<string, ProjectDetail> = {
             "/mock/dashboard/project-preview-dashboard-2.png",
         ],
     },
+    "Workforce : B2B HR 플랫폼": {
+        intro: "B2B 인사관리 도메인을 기준으로 인증/조직/대시보드 흐름을 통합해 설계한 HR 프로젝트입니다.",
+        role: "Spring + FastAPI 백엔드 연동, 핵심 API/인증 구조 구현 및 프론트 협업",
+        outcomes: [
+            "Spring Boot와 FastAPI를 역할 분리해 운영 가능한 백엔드 구조를 구성했습니다.",
+            "Spring Security/JWT 기반 인증 흐름과 조직 데이터 처리 로직을 정리했습니다.",
+            "Vue 대시보드 연동과 AWS 리소스 구성을 통해 실서비스 형태에 가까운 개발 경험을 확보했습니다.",
+        ],
+        previewImages: [
+            "/mock/project-preview-dashboard.svg",
+            "/mock/project-preview-unity.svg",
+        ],
+    },
 };
 
 export default function ProjectsSection({
