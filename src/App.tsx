@@ -83,6 +83,7 @@ const App = () => {
       <AboutSection
         theme={theme}
         pointColor={ui.pointColor}
+        pointBg={ui.pointBg}
         pointBorder={ui.pointBorder}
         glassBase={ui.glassBase}
       />

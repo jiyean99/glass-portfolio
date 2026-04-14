@@ -42,6 +42,8 @@ type ExperienceItem = {
     contributions: string[];
     outcome: string;
     previewImages: string[];
+    duration: string;
+    contributionLevel: string;
     liveUrl?: string;
 };
 
@@ -59,13 +61,14 @@ const JAM_PUBLIC_EXPERIENCES: ExperienceItem[] = [
         outcome: "서비스 운영 안정성과 실시간 응답 품질을 높여 유지보수 효율을 개선했습니다.",
         previewImages: [
             "/mock/project-preview-sports.svg",
-            "/mock/project-preview-dashboard.svg",
             "/mock/project-preview-unity.svg",
         ],
+        duration: "약 6개월 (더미)",
+        contributionLevel: "프론트 기여도 80% (더미)",
         liveUrl: "https://www.adventurer.co.kr/",
     },
     {
-        title: "사내 매출 관리 대시보드 구축",
+        title: "사내 매출 관리 대시보드",
         desc: "Vue.js 및 Chart.js를 활용한 매출 분석 대시보드 개발",
         skills: ["Vue.js", "Chart.js", "REST API", "JavaScript", "MySQL"],
         role: "매출 데이터 시각화 대시보드 프론트엔드 개발",
@@ -76,8 +79,11 @@ const JAM_PUBLIC_EXPERIENCES: ExperienceItem[] = [
         ],
         outcome: "매출 추이 확인과 의사결정에 필요한 데이터 접근성을 크게 높였습니다.",
         previewImages: [
-            "/mock/project-preview-dashboard.svg",
+            "/mock/dashboard/project-preview-dashboard-1.png",
+            "/mock/dashboard/project-preview-dashboard-2.png",
         ],
+        duration: "약 4개월 (더미)",
+        contributionLevel: "프론트 기여도 90% (더미)",
     },
     {
         title: "챔프포커",
@@ -94,6 +100,8 @@ const JAM_PUBLIC_EXPERIENCES: ExperienceItem[] = [
             "/mock/project-preview-unity.svg",
             "/mock/project-preview-sports.svg",
         ],
+        duration: "약 5개월 (더미)",
+        contributionLevel: "프론트 기여도 75% (더미)",
         liveUrl: "https://champpoker.co.kr/",
     },
     {
@@ -109,8 +117,9 @@ const JAM_PUBLIC_EXPERIENCES: ExperienceItem[] = [
         outcome: "아이디어 검증에 필요한 MVP 품질의 프로토타입을 빠르게 확보했습니다.",
         previewImages: [
             "/mock/project-preview-running.svg",
-            "/mock/project-preview-dashboard.svg",
         ],
+        duration: "약 3개월 (더미)",
+        contributionLevel: "프론트 기여도 70% (더미)",
     },
 ];
 
@@ -154,7 +163,7 @@ const JAM_PUBLIC_CORE_SKILLS = [
 
 const PROJECT_ICON_BY_TITLE = {
     승부사온라인: Trophy,
-    "사내 매출 관리 대시보드 구축": BarChart3,
+    "사내 매출 관리 대시보드": BarChart3,
     챔프포커: Gamepad2,
     "러닝 서비스 프로토타입": Activity,
 } as const;
@@ -166,11 +175,20 @@ export default function ExperienceSection({
     pointBorder,
     glassBase,
 }: Props) {
+    const toAssetUrl = (path: string) =>
+        `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+
     const sectionRef = useRef<HTMLElement>(null);
     const timelineRef = useRef<HTMLDivElement>(null);
     const [lineProgress, setLineProgress] = useState(0);
     const [selectedExperience, setSelectedExperience] = useState<ExperienceItem | null>(null);
     const [activePreviewIndex, setActivePreviewIndex] = useState(0);
+    const [expandedPreviewImage, setExpandedPreviewImage] = useState<string | null>(null);
+    const [isExpandedZoomed, setIsExpandedZoomed] = useState(false);
+    const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
+    const [isPanning, setIsPanning] = useState(false);
+    const panStartRef = useRef({ x: 0, y: 0 });
+    const panOriginRef = useRef({ x: 0, y: 0 });
     const rafRef = useRef<number | null>(null);
 
     useEffect(() => {
@@ -212,7 +230,31 @@ export default function ExperienceSection({
 
         const onKeyDown = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
+                if (expandedPreviewImage) {
+                    setExpandedPreviewImage(null);
+                    setIsExpandedZoomed(false);
+                    setPanOffset({ x: 0, y: 0 });
+                    return;
+                }
                 setSelectedExperience(null);
+            }
+
+            if (!selectedExperience || !expandedPreviewImage) return;
+
+            if (event.key === "ArrowLeft" && selectedExperience.previewImages.length > 1) {
+                setActivePreviewIndex((prev) =>
+                    prev === 0 ? selectedExperience.previewImages.length - 1 : prev - 1
+                );
+                setIsExpandedZoomed(false);
+                setPanOffset({ x: 0, y: 0 });
+            }
+
+            if (event.key === "ArrowRight" && selectedExperience.previewImages.length > 1) {
+                setActivePreviewIndex((prev) =>
+                    prev === selectedExperience.previewImages.length - 1 ? 0 : prev + 1
+                );
+                setIsExpandedZoomed(false);
+                setPanOffset({ x: 0, y: 0 });
             }
         };
 
@@ -221,10 +263,13 @@ export default function ExperienceSection({
             window.removeEventListener("keydown", onKeyDown);
             document.body.style.overflow = originalOverflow;
         };
-    }, [selectedExperience]);
+    }, [selectedExperience, expandedPreviewImage]);
 
     useEffect(() => {
         setActivePreviewIndex(0);
+        setExpandedPreviewImage(null);
+        setIsExpandedZoomed(false);
+        setPanOffset({ x: 0, y: 0 });
     }, [selectedExperience?.title]);
 
     const lineOpacity = LINE_OPACITY_MIN + (LINE_OPACITY_MAX - LINE_OPACITY_MIN) * lineProgress;
@@ -292,7 +337,7 @@ export default function ExperienceSection({
                             <div className="space-y-6 md:space-y-8">
                                 <div>
                                     <h4 className="text-xl md:text-2xl font-black tracking-tight mb-2">
-                                        한화시스템 응용 SW 엔지니어링
+                                        한화시스템 응용 SW 캠프 수료
                                     </h4>
                                     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-sm opacity-65">
                                         <span className="inline-flex items-center gap-1.5">
@@ -302,6 +347,10 @@ export default function ExperienceSection({
                                         <span className="inline-flex items-center gap-1.5">
                                             <Calendar size={13} />
                                             2025.11 - 2026.05
+                                        </span>
+                                        <span className="inline-flex items-center gap-1.5">
+                                            <Briefcase size={13} />
+                                            백엔드 중심 풀스택 실습 프로젝트 참여
                                         </span>
                                     </div>
                                 </div>
@@ -324,7 +373,7 @@ export default function ExperienceSection({
 
                                 <div>
                                     <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-3 ${pointColor}`}>
-                                        주요 기술
+                                        주요기술
                                     </p>
                                     <div className="flex flex-wrap gap-2">
                                         {BOOTCAMP_SKILLS.map((skill) => (
@@ -365,7 +414,7 @@ export default function ExperienceSection({
                             <h3
                                 className={`text-2xl sm:text-3xl md:text-5xl font-black tracking-tighter uppercase mb-2 group-hover:${pointColor} transition-colors`}
                             >
-                                (주)잼퍼블릭
+                                (주) zempublic
                             </h3>
 
                             <p className="text-[9px] md:text-xs font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] opacity-40 mb-4 md:mb-8">
@@ -379,7 +428,7 @@ export default function ExperienceSection({
                             <div className="space-y-6 md:space-y-8">
                                 <div>
                                     <h4 className="text-xl md:text-2xl font-black tracking-tight mb-2">
-                                        웹 솔루션 개발 및 운영
+                                        웹 프론트 개발 및 운영
                                     </h4>
                                     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-sm opacity-65">
                                         <span className="inline-flex items-center gap-1.5">
@@ -389,6 +438,10 @@ export default function ExperienceSection({
                                         <span className="inline-flex items-center gap-1.5">
                                             <Calendar size={13} />
                                             2023.03 - 2025.08
+                                        </span>
+                                        <span className="inline-flex items-center gap-1.5">
+                                            <Briefcase size={13} />
+                                            프론트엔드 전담으로 핵심 화면/기능 주도
                                         </span>
                                     </div>
                                 </div>
@@ -411,7 +464,7 @@ export default function ExperienceSection({
 
                                 <div>
                                     <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-3 ${pointColor}`}>
-                                        핵심 기술
+                                        주요기술
                                     </p>
                                     <div className="flex flex-wrap gap-2">
                                         {JAM_PUBLIC_CORE_SKILLS.map((skill) => (
@@ -479,7 +532,10 @@ export default function ExperienceSection({
                         <button
                             type="button"
                             onClick={() => setSelectedExperience(null)}
-                            className="absolute top-4 right-4 md:top-3 md:right-3 z-20 w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/20 inline-flex items-center justify-center bg-black/35 opacity-90 hover:opacity-100 hover:bg-white/10 transition-all"
+                            className={`absolute top-4 right-4 md:top-3 md:right-3 z-20 w-9 h-9 md:w-10 md:h-10 rounded-full border inline-flex items-center justify-center opacity-90 hover:opacity-100 transition-all ${theme === "dark"
+                                ? "border-white/20 bg-black/35 hover:bg-white/10 text-white"
+                                : "border-black/15 bg-white/85 hover:bg-white text-[#111111]"
+                                }`}
                             aria-label="상세 모달 닫기"
                         >
                             <X size={16} />
@@ -515,6 +571,16 @@ export default function ExperienceSection({
                                 <p className="mt-2 text-sm md:text-base opacity-75 leading-relaxed">
                                     {selectedExperience.desc}
                                 </p>
+                                <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-sm opacity-75">
+                                    <span className="inline-flex items-center gap-1.5">
+                                        <Calendar size={13} />
+                                        {selectedExperience.duration}
+                                    </span>
+                                    <span className="inline-flex items-center gap-1.5">
+                                        <Briefcase size={13} />
+                                        {selectedExperience.contributionLevel}
+                                    </span>
+                                </div>
 
                                 <div className="mt-6 md:mt-7 space-y-5">
                                     <div>
@@ -558,9 +624,16 @@ export default function ExperienceSection({
                                     <div className="rounded-2xl border border-white/15 bg-white/[0.03] p-2 md:p-2.5 mb-4">
                                         <div className="relative">
                                             <img
-                                                src={selectedExperience.previewImages[activePreviewIndex]}
+                                                src={toAssetUrl(
+                                                    selectedExperience.previewImages[activePreviewIndex]
+                                                )}
                                                 alt={`${selectedExperience.title} 프리뷰 ${activePreviewIndex + 1}`}
-                                                className="w-full h-40 md:h-52 object-cover rounded-xl border border-white/10"
+                                                className="w-full h-40 md:h-52 object-cover object-top rounded-xl border border-white/10 cursor-zoom-in"
+                                                onClick={() =>
+                                                    setExpandedPreviewImage(
+                                                        selectedExperience.previewImages[activePreviewIndex]
+                                                    )
+                                                }
                                             />
                                             {selectedExperience.previewImages.length > 1 ? (
                                                 <>
@@ -573,7 +646,10 @@ export default function ExperienceSection({
                                                                     : prev - 1
                                                             )
                                                         }
-                                                        className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border border-white/25 bg-black/35 inline-flex items-center justify-center hover:bg-black/55 transition-colors"
+                                                        className={`absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border inline-flex items-center justify-center transition-colors ${theme === "dark"
+                                                            ? "border-white/25 bg-black/35 hover:bg-black/55 text-white"
+                                                            : "border-black/15 bg-white/90 hover:bg-white text-[#111111]"
+                                                            }`}
                                                         aria-label="이전 이미지"
                                                     >
                                                         <ChevronLeft size={14} />
@@ -587,7 +663,10 @@ export default function ExperienceSection({
                                                                     : prev + 1
                                                             )
                                                         }
-                                                        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border border-white/25 bg-black/35 inline-flex items-center justify-center hover:bg-black/55 transition-colors"
+                                                        className={`absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border inline-flex items-center justify-center transition-colors ${theme === "dark"
+                                                            ? "border-white/25 bg-black/35 hover:bg-black/55 text-white"
+                                                            : "border-black/15 bg-white/90 hover:bg-white text-[#111111]"
+                                                            }`}
                                                         aria-label="다음 이미지"
                                                     >
                                                         <ChevronRight size={14} />
@@ -616,17 +695,17 @@ export default function ExperienceSection({
                                         ) : null}
                                     </div>
 
-                                    <div className="rounded-2xl border border-white/15 bg-white/[0.03] p-4 md:p-5">
-                                        <p className="text-[11px] md:text-xs font-bold uppercase tracking-wider opacity-60 mb-3">
-                                            Stack
+                                    <div>
+                                        <p className={`text-[10px] md:text-xs font-black uppercase tracking-widest mb-2 ${pointColor}`}>
+                                            주요기술
                                         </p>
                                         <div className="flex flex-wrap gap-2">
                                             {selectedExperience.skills.map((skill) => (
                                                 <span
                                                     key={skill}
                                                     className={`px-3 py-1.5 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest border ${theme === "dark"
-                                                        ? "bg-yellow-400/10 border-yellow-400/25 text-yellow-300/90"
-                                                        : "bg-amber-400/15 border-amber-400/50 text-amber-700"
+                                                        ? "bg-white/8 border-white/15 text-white/90"
+                                                        : "bg-white/85 border-black/10 text-[#111111]"
                                                         }`}
                                                 >
                                                     {skill}
@@ -638,6 +717,148 @@ export default function ExperienceSection({
                             </div>
                         </div>
                     </div>
+                </div>
+            ) : null}
+            {expandedPreviewImage ? (
+                <div
+                    className="fixed inset-0 z-[260] bg-black/92 backdrop-blur-sm flex items-center justify-center p-1 md:p-2"
+                    onClick={() => {
+                        setExpandedPreviewImage(null);
+                        setIsExpandedZoomed(false);
+                        setPanOffset({ x: 0, y: 0 });
+                    }}
+                    role="presentation"
+                >
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setExpandedPreviewImage(null);
+                            setIsExpandedZoomed(false);
+                            setPanOffset({ x: 0, y: 0 });
+                        }}
+                        className={`absolute top-4 right-4 z-10 w-10 h-10 rounded-full border inline-flex items-center justify-center transition-colors ${theme === "dark"
+                            ? "border-white/30 bg-black/40 hover:bg-black/60 text-white"
+                            : "border-black/20 bg-white/92 hover:bg-white text-[#111111]"
+                            }`}
+                        aria-label="확대 이미지 닫기"
+                    >
+                        <X size={16} />
+                    </button>
+                    {selectedExperience && selectedExperience.previewImages.length > 1 ? (
+                        <>
+                            <button
+                                type="button"
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    setActivePreviewIndex((prev) =>
+                                        prev === 0 ? selectedExperience.previewImages.length - 1 : prev - 1
+                                    );
+                                    setIsExpandedZoomed(false);
+                                    setPanOffset({ x: 0, y: 0 });
+                                }}
+                                className={`absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full border inline-flex items-center justify-center transition-colors ${theme === "dark"
+                                    ? "border-white/30 bg-black/45 hover:bg-black/65 text-white"
+                                    : "border-black/20 bg-white/92 hover:bg-white text-[#111111]"
+                                    }`}
+                                aria-label="이전 확대 이미지"
+                            >
+                                <ChevronLeft size={18} />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    setActivePreviewIndex((prev) =>
+                                        prev === selectedExperience.previewImages.length - 1 ? 0 : prev + 1
+                                    );
+                                    setIsExpandedZoomed(false);
+                                    setPanOffset({ x: 0, y: 0 });
+                                }}
+                                className={`absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full border inline-flex items-center justify-center transition-colors ${theme === "dark"
+                                    ? "border-white/30 bg-black/45 hover:bg-black/65 text-white"
+                                    : "border-black/20 bg-white/92 hover:bg-white text-[#111111]"
+                                    }`}
+                                aria-label="다음 확대 이미지"
+                            >
+                                <ChevronRight size={18} />
+                            </button>
+                        </>
+                    ) : null}
+                    <img
+                        src={toAssetUrl(
+                            selectedExperience
+                                ? selectedExperience.previewImages[activePreviewIndex]
+                                : expandedPreviewImage
+                        )}
+                        alt="확대된 프로젝트 프리뷰"
+                        className={`w-auto h-auto max-w-[98vw] max-h-[96vh] md:max-w-[97vw] md:max-h-[97vh] object-contain rounded-lg md:rounded-xl transition-transform duration-200 ${isExpandedZoomed
+                            ? isPanning
+                                ? "cursor-grabbing"
+                                : "cursor-grab"
+                            : "cursor-zoom-in"
+                            }`}
+                        style={{
+                            transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${isExpandedZoomed ? 2.25 : 1})`,
+                            transformOrigin: "center center",
+                        }}
+                        onClick={(event) => event.stopPropagation()}
+                        onDoubleClick={() => {
+                            setIsExpandedZoomed((prev) => {
+                                const next = !prev;
+                                if (!next) setPanOffset({ x: 0, y: 0 });
+                                return next;
+                            });
+                        }}
+                        onMouseDown={(event) => {
+                            if (!isExpandedZoomed) return;
+                            event.preventDefault();
+                            setIsPanning(true);
+                            panStartRef.current = { x: event.clientX, y: event.clientY };
+                            panOriginRef.current = { ...panOffset };
+                        }}
+                        onMouseMove={(event) => {
+                            if (!isExpandedZoomed || !isPanning) return;
+                            setPanOffset({
+                                x: panOriginRef.current.x + (event.clientX - panStartRef.current.x),
+                                y: panOriginRef.current.y + (event.clientY - panStartRef.current.y),
+                            });
+                        }}
+                        onMouseUp={() => setIsPanning(false)}
+                        onMouseLeave={() => setIsPanning(false)}
+                        onTouchStart={(event) => {
+                            if (!isExpandedZoomed) return;
+                            const touch = event.touches[0];
+                            setIsPanning(true);
+                            panStartRef.current = { x: touch.clientX, y: touch.clientY };
+                            panOriginRef.current = { ...panOffset };
+                        }}
+                        onTouchMove={(event) => {
+                            if (!isExpandedZoomed || !isPanning) return;
+                            const touch = event.touches[0];
+                            setPanOffset({
+                                x: panOriginRef.current.x + (touch.clientX - panStartRef.current.x),
+                                y: panOriginRef.current.y + (touch.clientY - panStartRef.current.y),
+                            });
+                        }}
+                        onTouchEnd={() => setIsPanning(false)}
+                    />
+                    <button
+                        type="button"
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            setIsExpandedZoomed((prev) => {
+                                const next = !prev;
+                                if (!next) setPanOffset({ x: 0, y: 0 });
+                                return next;
+                            });
+                        }}
+                        className={`absolute bottom-4 left-1/2 -translate-x-1/2 z-10 px-3 py-1.5 rounded-full border text-xs font-bold tracking-wide transition-colors ${theme === "dark"
+                            ? "border-white/30 bg-black/45 hover:bg-black/65 text-white"
+                            : "border-black/20 bg-white/92 hover:bg-white text-[#111111]"
+                            }`}
+                    >
+                        {isExpandedZoomed ? "축소" : "확대"}
+                    </button>
                 </div>
             ) : null}
         </section>

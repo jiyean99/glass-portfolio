@@ -15,14 +15,14 @@ export default function HeroSection({ theme }: Props) {
                     <span
                         className={`text-[9px] md:text-[10px] font-bold tracking-widest uppercase ${theme === "dark" ? "text-yellow-400" : "text-amber-600"}`}
                     >
-                        Frontend & Fullstack Engineer
+                        Fullstack Engineer
                     </span>
                 </div>
                 <h1 className="text-[14vw] sm:text-[12vw] md:text-[10vw] font-black leading-[0.9] tracking-tighter uppercase break-words">
                     GROWING
                     <br />
                     <span
-                        className={`${theme === "dark" ? "text-yellow-400" : "text-amber-500"} italic font-light`}
+                        className={`${theme === "dark" ? "text-yellow-400" : "text-amber-500"} italic`}
                     >
                         FULLSTACK
                     </span>
